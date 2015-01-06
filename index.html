@@ -416,30 +416,9 @@ type='text/css'>
 
 
 
-      <div class="actions" >
-
-        <a class="button" href="#" id="generateBtn" >Generate clouds</a> <a class="button" href="#" id="showTextureControlsBtn" >Show texture controls</a> <a class="button" href="#" id="fullscreenBtn" >Fullscreen</a>
-
-      </div>
-
-        <ul id="textureList" >
-
-        </ul>
 
 
-
-
-      <div style="clear:both; height: 20px; display: block" ></div>
-
-      <h2>Credits</h2>
-
-      <p>Coded by Jaume Sánchez (<a href="http://twitter.com/prapanchnair" rel="external">@prapanchnair</a>)<br/><br/>
-
-      Inspired on Mr.doob's <a href="http://mrdoob.com/131/Clouds" rel="external" >WebGL clouds</a> and <br/>Mark J. Harris' <a href="http://www.markmark.net/PDFs/RTCloudsForGames_HarrisGDC2002.pdf" rel="external" >Real-Time Cloud Rendering for Games</a>.<br/><br/>
-
-
-      Textures are property of their respective owners.
-
+      <p>Original design by <a href="http://www.clicktorelease.com/blog/how-to-make-clouds-with-css-3d" rel="external">Jaume Sánchez</a><br/><br/>
       </p>
 
       <g:plusone width="280"></g:plusone>
@@ -465,7 +444,6 @@ type='text/css'>
   </div>
 
   
-
   <script>
 
   
@@ -524,8 +502,6 @@ type='text/css'>
 
     objects = [],
 
-    textures = [],
-
     
 
     world = document.getElementById( 'world' ),
@@ -540,363 +516,19 @@ type='text/css'>
 
     worldXAngle = 0,
 
-    worldYAngle = 0,
-
-    computedWeights = [];
-
-  
-
-  var links = document.querySelectorAll( 'a[rel=external]' );
-
-  for( var j = 0; j < links.length; j++ ) {
-
-    var a = links[ j ];
-
-    a.addEventListener( 'click', function( e ) {
-
-      window.open( this.href, '_blank' );
-
-      e.preventDefault();
-
-    }, false );
-
-  }
+    worldYAngle = 0;
 
   
 
   viewport.style.webkitPerspective = p;
 
-  viewport.style.MozPerspective = p + 'px';
+  viewport.style.MozPerspective = p;
 
   viewport.style.oPerspective = p;
 
-  viewport.style.perspective = p;
-
   
-
-  textures = [
-
-    { name: 'white cloud',  file: 'cloud.png'   , opacity: 1, weight: 0 },
-
-    { name: 'dark cloud',   file: 'darkCloud.png' , opacity: 1, weight: 0 },
-
-    { name: 'smoke cloud',  file: 'smoke.png'   , opacity: 1, weight: 0 },
-
-    { name: 'explosion',  file: 'explosion.png' , opacity: 1, weight: 0 },
-
-    { name: 'explosion 2',  file: 'explosion2.png'  , opacity: 1, weight: 0 },
-
-    { name: 'box',      file: 'box.png'     , opacity: 1, weight: 0 }
-
-  ];
-
-  
-
-  var el = document.getElementById( 'textureList' );
-
-  for( var j = 0; j < textures.length; j++ ) {
-
-    var li = document.createElement( 'li' );
-
-    var span = document.createElement( 'span' );
-
-    span.textContent = textures[ j ].name;
-
-    var div = document.createElement( 'div' );
-
-    div.className = 'buttons';
-
-    var btnNone = document.createElement( 'a' );
-
-    btnNone.setAttribute( 'id', 'btnNone' + j );
-
-    btnNone.setAttribute( 'href', '#' );
-
-    btnNone.textContent = 'None';
-
-    btnNone.className = 'left button';
-
-    var btnFew = document.createElement( 'a' );
-
-    btnFew.setAttribute( 'id', 'btnFew' + j );
-
-    btnFew.setAttribute( 'href', '#' );
-
-    btnFew.textContent = 'A few';
-
-    btnFew.className = 'middle button';
-
-    var btnNormal = document.createElement( 'a' );
-
-    btnNormal.setAttribute( 'id', 'btnNormal' + j );
-
-    btnNormal.setAttribute( 'href', '#' );
-
-    btnNormal.textContent = 'Some';
-
-    btnNormal.className = 'middle button';
-
-    var btnLot = document.createElement( 'a' );
-
-    btnLot.setAttribute( 'id', 'btnLot' + j );
-
-    btnLot.setAttribute( 'href', '#' );
-
-    btnLot.textContent = 'A lot';
-
-    btnLot.className = 'right button';
-
-    
-
-    ( function( id ) {
-
-      btnNone.addEventListener( 'click', function() { setTextureUsage( id, 'None' ); } );
-
-      btnFew.addEventListener( 'click', function() { setTextureUsage( id, 'Few' ); } );
-
-      btnNormal.addEventListener( 'click', function() { setTextureUsage( id, 'Normal' ); } );
-
-      btnLot.addEventListener( 'click', function() { setTextureUsage( id, 'Lot' ); } );
-
-    } )( j );
-
-    
-
-    li.appendChild( span );
-
-    div.appendChild( btnNone );
-
-    div.appendChild( btnFew );
-
-    div.appendChild( btnNormal );
-
-    div.appendChild( btnLot );
-
-    li.appendChild( div );
-
-    el.appendChild( li );
-
-    
-
-    setTextureUsage( j, 'None' );
-
-  }
-
-  
-
-  setTextureUsage( 0, 'Lot' );
 
   generate();
-
-  
-/*
-  document.getElementById( 'cloudsPreset' ).addEventListener( 'click', function( e ) {
-
-    setTextureUsage( 0, 'Lot' );
-
-    setTextureUsage( 1, 'None' );
-
-    setTextureUsage( 2, 'None' );
-
-    setTextureUsage( 3, 'None' );
-
-    setTextureUsage( 4, 'None' );
-
-    setTextureUsage( 5, 'None' );
-
-    generate();
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  document.getElementById( 'stormPreset' ).addEventListener( 'click', function( e ) {
-
-    setTextureUsage( 0, 'None' );
-
-    setTextureUsage( 1, 'None' );
-
-    setTextureUsage( 2, 'Lot' );
-
-    setTextureUsage( 3, 'None' );
-
-    setTextureUsage( 4, 'None' );
-
-    setTextureUsage( 5, 'None' );
-
-    generate();
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  document.getElementById( 'boomPreset' ).addEventListener( 'click', function( e ) {
-
-    setTextureUsage( 0, 'None' );
-
-    setTextureUsage( 1, 'None' );
-
-    setTextureUsage( 2, 'Lot' );
-
-    setTextureUsage( 3, 'Few' );
-
-    setTextureUsage( 4, 'None' );
-
-    setTextureUsage( 5, 'None' );
-
-    generate();
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  document.getElementById( 'bayPreset' ).addEventListener( 'click', function( e ) {
-
-    setTextureUsage( 0, 'None' );
-
-    setTextureUsage( 1, 'None' );
-
-    setTextureUsage( 2, 'Normal' );
-
-    setTextureUsage( 3, 'Lot' );
-
-    setTextureUsage( 4, 'Lot' );
-
-    setTextureUsage( 5, 'None' );
-
-    generate();
-
-    e.preventDefault();
-
-  } );
-
-  */
-
-  function setTextureUsage( id, mode ) {
-
-    var modes = [ 'None', 'Few', 'Normal', 'Lot' ];
-
-    var weights = { 'None': 0, 'Few': .3, 'Normal': .7, 'Lot': 1 };
-
-    for( var j = 0; j < modes.length; j++ ) {
-
-      var el = document.getElementById( 'btn' + modes[ j ] + id );
-
-      el.className = el.className.replace( ' active', '' );
-
-      if( modes[ j ] == mode ) {
-
-        el.className += ' active';
-
-        textures[ id ].weight = weights[ mode ];
-
-      }
-
-    }
-
-  }
-
-  
-
-  var optionsContent = document.getElementById( 'optionsContent' );
-
-  var el = document.getElementById( 'closeBtn' ).addEventListener( 'click', function( e ) {
-
-    if( optionsContent.style.display != 'block' ) {
-
-      optionsContent.style.display = 'block';
-
-    } else {
-
-      optionsContent.style.display = 'none';
-
-    }
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  var textureControls = document.getElementById( 'textureControls' );
-
-  var el = document.getElementById( 'showTextureControlsBtn' ).addEventListener( 'click', function( e ) {
-
-    if( textureControls.style.display != 'block' ) {
-
-      textureControls.style.display = 'block';
-
-    } else {
-
-      textureControls.style.display = 'none';
-
-    }
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  var el = document.getElementById( 'fullscreenBtn' );
-
-  if( el ) {
-
-    var options = document.getElementById( 'options' );
-
-    el.addEventListener( 'click', function( e ) {
-
-      if( document.body.webkitRequestFullScreen ) {
-
-        document.body.onwebkitfullscreenchange = function(e) {
-
-        //  options.style.display = 'none';
-
-          document.body.style.width = window.innerWidth + 'px';
-
-          document.body.style.height = window.innerHeight + 'px';
-
-          document.body.onwebkitfullscreenchange = function() {
-
-        //    options.style.display = 'block';
-
-          };
-
-        };
-
-        document.body.webkitRequestFullScreen();
-
-      }
-
-      if( document.body.mozRequestFullScreen ) {
-
-        /*document.body.onmozfullscreenchange = function( e ) {
-
-          options.style.display = 'none';
-
-          document.body.onmozfullscreenchange = function( e ) {
-
-            options.style.display = 'block';
-
-          };
-
-        };*/
-
-        document.body.mozRequestFullScreen();
-
-      }
-
-      e.preventDefault();
-
-    }, false );
-
-  }
 
   
 
@@ -916,13 +548,11 @@ type='text/css'>
 
     var t = 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) translateZ( ' + z + 'px )';
 
-    div.style.webkitTransform = 
+    div.style.webkitTransform = t;
 
-    div.style.MozTransform = 
+    div.style.MozTransform = t;
 
-    div.style.oTransform =
-
-    div.style.transform = t;
+    div.style.oTransform = t;
 
     world.appendChild( div );
 
@@ -936,23 +566,13 @@ type='text/css'>
 
       var r = Math.random();
 
-      var src = 'troll.png';
+      var src = 'cloud.png';
 
-      for( var k = 0; k < computedWeights.length; k++ ) {
+      ( function( img ) { img.addEventListener( 'load', function() {
 
-        if( r >= computedWeights[ k ].min && r <= computedWeights[ k ].max ) {
+        img.style.opacity = .8;
 
-          ( function( img ) { img.addEventListener( 'load', function() {
-
-            img.style.opacity = .8;
-
-          } ) } )( cloud );
-
-          src = computedWeights[ k ].src;
-
-        }
-
-      }
+      } ) } )( cloud );
 
       cloud.setAttribute( 'src', src );
 
@@ -990,13 +610,11 @@ type='text/css'>
 
       var t = 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) translateZ( ' + z + 'px ) rotateZ( ' + a + 'deg ) scale( ' + s + ' )';
 
-      cloud.style.webkitTransform = 
+      cloud.style.webkitTransform = t;
 
-      cloud.style.MozTransform = 
+      cloud.style.MozTransform = t;
 
-      cloud.style.oTransform = 
-
-      cloud.style.transform = t;
+      cloud.style.oTransform = t;
 
     
 
@@ -1018,29 +636,7 @@ type='text/css'>
 
   window.addEventListener( 'DOMMouseScroll', onContainerMouseWheel ); 
 
-  //window.addEventListener( 'deviceorientation', orientationhandler, false );
 
-  //window.addEventListener( 'MozOrientation', orientationhandler, false );
-
-  
-
-  document.getElementById( 'generateBtn' ).addEventListener( 'click', function( e ) {
-
-    generate();
-
-    e.preventDefault();
-
-  } );
-
-  
-
-  window.addEventListener( 'keydown', function( e ) {
-
-    if( e.keyCode == 32 ) generate();
-
-  } );
-
-  
 
   window.addEventListener( 'mousemove', function( e ) {
 
@@ -1048,33 +644,7 @@ type='text/css'>
 
     worldXAngle = ( .5 - ( e.clientY / window.innerHeight ) ) * 180;
 
-    //worldXAngle = .1 * ( e.clientY - .5 * window.innerHeight );
-
-    //worldYAngle = .1 * ( e.clientX - .5 * window.innerWidth );
-
     updateView();
-
-  } );
-
-  
-
-  window.addEventListener( 'touchmove', function( e ) {
-
-    var ptr = e.changedTouches.length;
-
-    while( ptr-- ) {
-
-      var touch = e.changedTouches[ ptr ];
-
-      worldYAngle = -( .5 - ( touch.pageX / window.innerWidth ) ) * 180;
-
-      worldXAngle = ( .5 - ( touch.pageY / window.innerHeight ) ) * 180;
-
-      updateView();
-
-    }
-
-    e.preventDefault();
 
   } );
 
@@ -1094,44 +664,6 @@ type='text/css'>
 
     }
 
-    computedWeights = [];
-
-    var total = 0;
-
-    for( var j = 0; j < textures.length; j++ ) {
-
-      if( textures[ j ].weight > 0 ) {
-
-        total += textures[ j ].weight;
-
-      }
-
-    }
-
-    var accum = 0;
-
-    for( var j = 0; j < textures.length; j++ ) {
-
-      if( textures[ j ].weight > 0 ) {
-
-        var w = textures[ j ].weight / total;
-
-        computedWeights.push( {
-
-          src: textures[ j ].file,
-
-          min: accum,
-
-          max: accum + w
-
-        } );
-
-        accum += w;
-
-      }
-
-    }
-
     for( var j = 0; j < 5; j++ ) {
 
       objects.push( createCloud() );
@@ -1146,13 +678,11 @@ type='text/css'>
 
     var t = 'translateZ( ' + d + 'px ) rotateX( ' + worldXAngle + 'deg) rotateY( ' + worldYAngle + 'deg)';
 
-    world.style.webkitTransform =
+    world.style.webkitTransform = t;
 
-    world.style.MozTransform =
+    world.style.MozTransform = t;
 
-    world.style.oTransform = 
-
-    world.style.transform = t;
+    world.style.oTransform = t;
 
   }
 
@@ -1174,38 +704,6 @@ type='text/css'>
 
   
 
-  function orientationhandler( e ){
-
-      
-
-    if( !e.gamma && !e.beta ) {
-
-      e.gamma = -( e.x * ( 180 / Math.PI ) );
-
-      e.beta = -( e.y * ( 180 / Math.PI ) );
-
-    }
-
-    
-
-    var x = e.gamma;
-
-    var y = e.beta;
-
-    
-
-    worldXAngle = y;
-
-    worldYAngle = x;
-
-    updateView();
-
-    
-
-  }
-
-  
-
   function update (){
 
     
@@ -1218,15 +716,11 @@ type='text/css'>
 
       var t = 'translateX( ' + layer.data.x + 'px ) translateY( ' + layer.data.y + 'px ) translateZ( ' + layer.data.z + 'px ) rotateY( ' + ( - worldYAngle ) + 'deg ) rotateX( ' + ( - worldXAngle ) + 'deg ) rotateZ( ' + layer.data.a + 'deg ) scale( ' + layer.data.s + ')';
 
-      layer.style.webkitTransform =
+      layer.style.webkitTransform = t;
 
-      layer.style.MozTransform =
+      layer.style.MozTransform = t;
 
-      layer.style.oTransform =
-
-      layer.style.transform = t;
-
-      //layer.style.webkitFilter = 'blur(5px)';
+      layer.style.oTransform = t;
 
     }
 
@@ -1244,8 +738,8 @@ type='text/css'>
 
 
 
-  </script>
 
+  </script>
   
 
   <script type="text/javascript">/* CloudFlare analytics upgrade */
