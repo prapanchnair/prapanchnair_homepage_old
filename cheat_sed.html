@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="cheatsheet-for-sed-the-commandlinevim-stream-editor">Cheatsheet for sed-the commandline/vim stream editor</h1>
+<h2 id="command-line-options">Command line options</h2>
+<p>Syntax: `sed [options] sed-command [input-file]</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Option</th>
+<th align="left">Description</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>-n</code></td>
+<td align="left">Suppress defaul pattern space printing</td>
+<td align="left"><code>sed -n '3 p' employee.txt</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>-i</code></td>
+<td align="left">Backu and modify input file directly</td>
+<td align="left"><code>sed -ibak 's/John/Johnny/' employee.txt</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>-f</code></td>
+<td align="left">Execute sed script file</td>
+<td align="left"><code>sed -f scrip.sed employee.txt</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>-e</code></td>
+<td align="left">Execute multiple commands</td>
+<td align="left"><code>sed -e 'command1' -e 'command2' input-file</code></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
