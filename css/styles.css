@@ -338,6 +338,10 @@
 
   }
 
+.navbar {
+   background:rgba(0,0,0,0.5);   /* for latest browsers */
+   background: transparent;  /* fallback for older browsers */
+} 
   
 
   :-moz-full-screen #options{ display: none }
@@ -345,3 +349,5 @@
   :-webkit-full-screen #options{ display: none }
 
   :full-screen #options{ display: none }
+
+
