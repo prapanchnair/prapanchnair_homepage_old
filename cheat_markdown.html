@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="markdown-pandoc-cheatsheet">Markdown &amp; Pandoc Cheatsheet</h1>
+<p><code># For heading h1</code> <code>## For heading h1</code> etc..</p>
+<p>Underline: <code>Underline</code> <code>========</code></p>
+<h3 id="lists">Lists:</h3>
+<p><code>1. Item</code> <code>2. Item</code></p>
+<p>or <code>* Item</code> <code>* Item</code> Indent by 3 or more spaces for sub items.</p>
+<h3 id="formatting">Formatting:</h3>
+<p><code>*italics*</code> or <code>_italics_</code> <code>**bold**</code> or <code>__bold__</code> One can also combine underscores and asterisk. <code>~~Strike through~~</code></p>
+<h3 id="links">Links:</h3>
+<pre><code>[I&#39;m an inline-style link](https://www.google.com)
+[I&#39;m an inline-style link with title](https://www.google.com &quot;Google&#39;s Homepage&quot;)
+[I&#39;m a reference-style link][Arbitrary case-insensitive reference text]
+[I&#39;m a relative reference to a repository file](../blob/master/LICENSE)
+[You can use numbers for reference-style link definitions][1]
+Or leave it empty and use the [link text itself]
+Some text to show that the reference links can follow later.
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com</code></pre>
+<h3 id="images">Images:</h3>
+<pre><code>Here&#39;s our logo (hover to see the title text):
+Inline-style: 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;)
+Reference-style: 
+![alt text][logo]
+[logo]:https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 2&quot;</code></pre>
+<h3 id="code">Code:</h3>
+<p>Inline code uses back-ticks before and after. For code blocks use three back ticks in a line followed by block followed by three back-ticks.</p>
+<h3 id="tables">Tables:</h3>
+<pre><code>Colons can be used to align columns.
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |</code></pre>
+<p>The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.</p>
+<pre><code>Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3</code></pre>
+<h3 id="blockquotes">Blockquotes:</h3>
+<p>use the <code>&gt;</code> symbol for blocking a line</p>
+<h3 id="inline-html">Inline HTML:</h3>
+<p>Use raw html tags.</p>
+<h3 id="horizontal-rule">Horizontal Rule:</h3>
+<p>Three or more <code>...</code> or <code>---</code> or <code>***</code> in a new line</p>
+<h3 id="youtube-videos">Youtube videos:</h3>
+<pre><code>&lt;a href=&quot;http://www.youtube.com/watch?feature=player_embedded&amp;v=YOUTUBE_VIDEO_ID_HERE
+&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg&quot; 
+alt=&quot;IMAGE ALT TEXT HERE&quot; width=&quot;240&quot; height=&quot;180&quot; border=&quot;10&quot; /&gt;&lt;/a&gt;</code></pre>
+<p>or</p>
+<pre><code>[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)</code></pre>
+<h2 id="pandoc-command">Pandoc Command</h2>
+<pre><code>pandoc -s -f markdown -t html cheat_markdown -o cheat_markdown.html</code></pre>
+<p>To generate html</p>
+<pre><code>pandoc -s -f markdown -t latex cheat_markdown -o cheat_markdown.tex</code></pre>
+<p>To generate standalone latex document.</p>
+</body>
+</html>
