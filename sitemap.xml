@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://prapanchnair.github.io/</loc>
+    <lastmod>2015-08-08T12:46:55+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prapanchnair.github.io/research/fvm/</loc>
+    <lastmod>2015-08-08T12:46:55+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prapanchnair.github.io/about/</loc>
+    <lastmod>2015-08-07T11:14:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prapanchnair.github.io/research/cylindricalNS/</loc>
+    <lastmod>2015-06-02T17:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prapanchnair.github.io/desc/series-hugo101/</loc>
+    <lastmod>2014-08-12T11:09:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prapanchnair.github.io/2013/11/life-at-iisc/</loc>
+    <lastmod>2013-11-10T16:14:00+00:00</lastmod>
+  </url>
+  
+</urlset>
