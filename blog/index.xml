@@ -16,7 +16,9 @@
       <pubDate>Sun, 10 Nov 2013 16:14:00 UTC</pubDate>
       <author>Prapanch Nair</author>
       <guid>https://prapanchnair.github.io/2013/11/life-at-iisc/</guid>
-      <description>&lt;p&gt;Great life :)&lt;/p&gt;
+      <description>&lt;p&gt;Great life :)
+When $ a \ne 0 $, there are two solutions to $ ax^2 + bx + c = 0 $ and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$&lt;/p&gt;
 </description>
     </item>
     
