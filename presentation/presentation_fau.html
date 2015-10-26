@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>[IISc] SPH - Nair</title>
+<meta name="description" content="IISc 2014 - SPH">
+<meta name="author" content="Prapanch Nair">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="css/reveal.min.css">
+<link rel="stylesheet" href="css/theme/default.css" id="theme">
+<link rel="stylesheet" href="css/tree.css">
+<!--MathJax-->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+TeX: {
+extensions: ["color.js","tex2jax.js"],
+Macros: {
+Shapes: '\\mathbb{X}',
+Shape: 'X',
+},
+tex2jax: {
+inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+         }
+},
+skipStartupTypeset: true
+});
+</script>
+
+<!-- For syntax highlighting -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+  var link = document.createElement( 'link' );
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = 'css/print/pdf.css';
+  document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+<h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
+    Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
+<h4>Prapanch Nair</h4> </br>
+<h5>Multiphase Flow Simulations Lab </h5>
+<h5>Dept. of Mechanical Engineering </h5>
+<h5>Indian Institute of Science, Bangalore</h5>
+<footer>
+\(
+%%%% If you see this, MathJax wasn't loaded ...
+\definecolor{myred}{RGB}{231,76,60}
+\definecolor{mygreen}{RGB}{38,166,115}
+\definecolor{myblue}{RGB}{38,89,166}
+\definecolor{mynormal}{RGB}{41,128,185}
+\)
+<img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
+</footer>
+</section>
+
+<section>
+  <section>
+    <h2><u>About Me</u></h2>
+    <h3>Previously</h3>
+    <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
+      <li> RA at University of Alabama, USA - Turbulence transition models</li>
+      <li> RWDI - Wind Engineering simulations </li>
+      <li> ISRO - Flight Mechanics Division </li>
+      <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
+    </ul>
+  </section>
+  <section>
+    <h3>Current</h3>
+    <ul> <li> Research Associate - IISc</li>
+      <li> Developing a FVM with subgrid thin film model</li>
+      <li> Water Entry problems using SPH</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2> Motivation </h2>
+    There is a need for reduced complexity to solve multi-physics problems.<br/>         
+    <ul><li> Lesser preprocessing </li>
+      <li> Account for greater geometric complexity  </li>
+      <li> Deformation and fragmentation of domain </li>
+      <li> Unified (monolithic) modelling possibilities  </li>
+      <li class="fragment" data-fragment-index="2"><strong> Meshless methods literature shows promise </strong> </li> 
+    </ul>
+  </section>
+  <section>
+
+
+  </section>
+</section>
+
+
+<section>
+<section>
+<h3>CFD Simulations </h3>
+<div class="box-green" data-title="Challenges" style="float:left;width:70%;top:1em">
+<ul><li class="fragment" data-fragment-index="1">High Density ratio</li>
+<li class="fragment" data-fragment-index="2"> Coalescence and Breakup</li>
+<li class="fragment" data-fragment-index="2"> Free Surfaces</li>
+<li class="fragment" data-fragment-index="2"> Surface tension</li>
+<li class="fragment" data-fragment-index="3"> Compressibility of phases</li>
+<li class="fragment" data-fragment-index="3"> Phase Change</li>
+</ul>
+</div>
+<div style="float:right;width:25%;display:inline-block" class="fragment" data-fragment-index="2"> <img
+class="imgNoBorder" src="img/droplet.png"/></div>
+
+<div style="float:left;width:70%;top:1em" class="fragment" data-fragment-index="2">
+<img class="imgNoBorder" src="img/twophase.png"/>
+</div>
+</section>
+<section>
+<h3> CFD Modeling Techniques</h3>
+<div class="tree" >
+  <ul>
+    <li> <a href="#">Simulation</a>
+      <ul>
+        <li> <a href="#">Eulerian</a>
+          <ul>
+            <li> <a href="#">Volume of Fluids</a> 
+              <ul class="fragment">
+                <li> <a href="#">Great Grand Child</a></li>
+                <li> <a href="#">Great Grand Child</a></li>
+              </ul>
+            <li> <a href="#">Level Set</a> 
+            
+            </li>
+          </ul>
+        </li>
+        <li> <a href="#">Lagrangian</a>
+          <ul class="fragment">
+            <li><a href="#">Meshless Methods</a></li>
+            <li><a href="#">LBM</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+</section>
+<section>
+<h3>Smoothed Particle Hydrodynamics (SPH)</h3>
+<div class="box-green" data-title="Governing Eqns.">
+\[
+\rho \frac{D\mathbf{u}}{Dt} = \rho \mathbf{f} -\nabla p +\mu \nabla^2 \mathbf{u}
+\]
+</div>
+<div style="float:left">
+<div class="fragment" data-fragment-index="1">
+<div class="parentImg" >
+<img class="imgNoBorder" style="width:600px;" src="img/drawing-3.svg" />
+</div></div>
+<div class="fragment" data-fragment-index="2">
+<div class="innerImg" >
+<img class="imgNoBorder" style="width:600px;" src="img/gradient.svg"/>
+</div></div>
+</div>
+<div style="float:right;width:300px;">
+<div class="fragment" data-fragment-index="1">
+Approximation:<small>
+\[ 
+A(r)= \int_\Omega A(r') W(|r-r'|)dr'   
+\]</small>
+</div>
+<div class="fragment" data-fragment-index="2">
+Derivatives:<small>
+\[ 
+\nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'   
+\] </small>
+</div>
+</div>
+<div class="fragment" data-fragment-index="3" style="clear:both;position:relative;top:100px;">
+<div class="box-red" data-title="Features" >
+  <ul>
+    <li>Compressible & Incompressible (Weakly Compressible/ISPH)</li>
+    <li>Naturally modeled interfaces</li>
+  </ul>
+</div></div>
+</section>
+<section>
+  <h3> Code Features</h3>
+  <ul>
+    <li class="fragment"> C code, revision controlled using <strong>git</strong></li>
+    <li class="fragment"> 2D and 3D with <strong>OpenMP</strong> parallelization (shared memory)</li>
+    <li class="fragment"> External, internal, multiphase flows</li>
+    <li class="fragment"> <strong>Rigid body</strong> interactions</li>
+    <li class="fragment"> Compressible and incompressible phases</li>
+    <li class="fragment"> Surface tension model in 2D and 3D(under development)</li>
+  </ul>
+</section>
+
+<section>
+<section>
+  <h3>Simulations</h3>
+  </section>
+<section>
+<h3> Water Entry/Exit </h3>
+<div style="float:left;width:30%;">
+<img class="imgNoBorder" src="img/Graphs/fig_10a.jpg" style="padding:0;margin:0">
+<img class="imgNoBorder" src="img/Graphs/fig_10d.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_10e.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_10f.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_10h.jpg" style="padding:0;margin:0" >
+</div>
+<div style="position:absolute;width:40%;padding-left:275px">
+<img class="imgNoBorder" src="img/Graphs/fig_11.png" style="padding:0;margin:0" >
+<a style="padding-left:50px;"><small style="text-align:center;">Water Entry - Penetration</small></a>
+<img class="imgNoBorder" src="img/Graphs/fig_14.png" style="padding-top:50px;margin:0" >
+<a style="padding-left:50px;"><small style="text-align:center;">Water Exit - Velocity</small></a>
+</div>
+<div style="float:right;width:33%;">
+<img class="imgNoBorder" src="img/Graphs/fig_13a.jpg" style="padding:0;margin:0">
+<img class="imgNoBorder" src="img/Graphs/fig_13b.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_13c.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_13d.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_13e.jpg" style="padding:0;margin:0" >
+<img class="imgNoBorder" src="img/Graphs/fig_13f.jpg" style="padding:0;margin:0" >
+</div>
+</section>
+<section >
+  <div style="background-image:url(img/figs/mo3.png);background-size:100%;background-position:bottom">
+<img style="width:32%;float:left;border:5px solid white;" src="img/figs/mo0000.png"/>
+<img style="width:32%;float:left;border:5px solid white" src="img/figs/mo1.png"/>
+<img style="width:32%;float:right;border:6px solid white" src="img/figs/mo2.png"/> 
+ 
+    <h3 style="color:#ffffff;padding-top:0px;"> &nbsp; Droplet Splash </h3>
+    <br/>
+    <br/>
+    <br/>
+    <p style="color:#ffffff;padding-top:100px;"><small> &nbsp; No. of Particles:    3 million <br/> &nbsp; Droplet Diameter:   2 mm <br/> &nbsp; Liquid film thickness: 0.3 mm <br/> &nbsp; Impact Sped:  10 m/s</small></p></h3>
+  <hr/>
+   <div style="clear:both;float:center;width:100%;padding-top:0px;padding-left:10px">
+      <small style="color:#ffffff" > SPH Vs VOF <sup style="font-size:50%;">1</sup></small><br/>
+      <img class="imgNoBorder" src="img/figs/drop2.png" style="width:300px;padding:0px 5px;margin:0px"><img class="imgNoBorder" src="img/figs/drop4.png" style="width:300px;padding:0px 5px;margin:0px"><img class="imgNoBorder" src="img/figs/drop5.png" style="width:300px;padding:0px 5px;margin:0px">
+    </div>
+
+</div>
+<small><sup style="font-size:50%;">1-</sup> C. Josserand, S. Zaleski, Droplet Splashing on Thin Liquid Film, Phys. Fluids 15(6) (2003) 1650-1657</small>
+</section>
+<section>
+  <h3>Lid Driven Cavity</h3>
+      <img class="imgNoBorder" src="img/uv_re400.png" style="width:80%;">
+      <img class="imgNoBorder" src="img/uv_re1000.png" style="width:80%;">
+
+</section>
+<section>
+  <h3>Surface Tension</h3>
+  <img class="imgNoBorder" style="float:center" src="img/surftens.gif" style="width:80%;"><br/>
+  <h3>Flow around Cylider (Re=100)</h3>
+      <img class="imgNoBorder" style="float:center" src="img/fpcyl.gif" style="width:100%;">
+
+</section>
+<section>
+  <h3> Rayleigh Plesset problem</h3>
+  <img class="imgNoBorder" style="float:center" src="img/rayleigh.png" style="width:80%;"><br/>
+
+
+</section>
+  </section>
+<!--<section>
+<h1>Preliminaries</h1>
+</section>-->
+<section>
+<section>
+<h3> Effervescent Jet Atomization</h3>
+<a class="fragment"> 
+<img  class="imgNoBorder" src="img/figs/atomization_schematic.svg" /></a>
+</section>
+<section data-transition="fade">
+<h3> Effervescent Jet Atomization</h3>
+<br />
+<ul>
+<li class="fragment"> Low operating pressure</li>
+<li class="fragment"> Large nozzle diameter</li>
+<li class="fragment"> Consistent spray performance
+<ul> <li> Less pollution</li>
+<li> Increased efficiency</li>
+</ul>
+</li>
+</ul>
+</section>
+<section>
+<h3>Characterization </h3>
+<div class="box-green" data-title="Parametes">Innjection Pressures, Injector
+Configuration<small><sup>[1]</sup></small> & Gas to Liquid Ratios (GLRs) </div>
+<div style="width:60%;float:left;">
+<img class="imgNoBorder" src="img/jatropa.png"/>
+<p style="text-align:center;"><small> Jatropa Oil spray cone <sup>[2]</sup></small><p> 
+</div>
+<!-- <div style="width:35%;float:right;transform:translateY(100%)">-->
+<div style="width:40%;float:right">
+<img class="imgNoBorder" src="img/glrsmd.png"/>
+<p style="text-align:center"><small> GLR Vs Drop size <sup>[3]</sup></small><p> 
+</div>
+<div style="clear:both;float:left; width=100%" class="box-green" data-title="Features">
+<div style="width:40%;display:inline-block;">
+<ul><li>Structure </li>
+<li>Spray cone angle</li> </ul></div>
+<div style="width:40%;display:inline-block;"><ul>
+<li>Unsteadiness </li> 
+<li>Droplet sizing </li>
+</ul> </div>
+</div>
+<footer style="text-align:left">
+<small><sup>[1]</sup> Hrishikesh Gadgil and B.N. Raghunandan. "Effect of Air Injection Configuration on the
+Characteristics of Effervescent Sprays", J Prop. Pow., Vol. 27, No. 4 (2011), pp. 925-928. doi:
+10.2514/1.B34052 <br />
+<sup>[2]</sup> Gadgil, Hrishikesh P., and B. N. Raghunandan. "Some features of spray breakup in effervescent atomizers."
+Exp. Fluids 50.2 (2011): 329-338.<br />
+<sup>[3]</sup>Broniarz-Press, L. U. B. O. M. I. R. A., et al. "Effervescent atomization of glycerol aqueous solutions." Transactions of the Institute of Fluid-Flow Machinery (2013).</small>
+                         </footer>
+
+                         </section>
+</section>
+
+
+<section>
+ <video width="944" height="704" controls>
+  <source src="./img/movies/dam.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+</section>
+
+
+
+
+
+
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+        zoomKey: 'shift',
+				theme: 'simple',//Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: 'fade',//Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				math: {
+              //mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js', 
+			        mathjax: 'js/MathJax-2.4-latest/MathJax.js', 
+			        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+			    },
+        multiplex: {
+        // Example values. To generate your own, see the socket.io server instructions.
+        secret:'14458547066147778712', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+        id: '61f8dc0b52f4c8d', // Obtained from socket.io server
+        url: 'revealjs-51546.onmodulus.net:80' // Location of socket.io serveri
+},
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'http://cdn.socket.io/socket.io-1.3.5.js', async: true },
+          { src: 'plugin/multiplex/master.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
