@@ -55,146 +55,146 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
 <!-- Any section element inside of this container is displayed as a slide -->
 <div class="slides">
-<section>
-<h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
-    Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
-<h4>Prapanch Nair</h4> </br>
-<h5>Multiphase Flow Simulations Lab </h5>
-<h5>Dept. of Mechanical Engineering </h5>
-<h5>Indian Institute of Science, Bangalore</h5>
-<footer>
-\(
-%%%% If you see this, MathJax wasn't loaded ...
-\definecolor{myred}{RGB}{231,76,60}
-\definecolor{mygreen}{RGB}{38,166,115}
-\definecolor{myblue}{RGB}{38,89,166}
-\definecolor{mynormal}{RGB}{41,128,185}
-\)
-<img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
-</footer>
-</section>
-
-<section>
   <section>
-    <h2>About Me</h2>
-    <hr>
-    <h3>Previously</h3>
-    <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
-      <li> RA at University of Alabama, USA - Turbulence transition models</li>
-      <li> RWDI - Wind Engineering simulations </li>
-      <li> ISRO - Flight Mechanics Division </li>
-      <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
-    </ul>
+    <h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
+        Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
+    <h4>Prapanch Nair</h4> </br>
+    <h5>Multiphase Flow Simulations Lab </h5>
+    <h5>Dept. of Mechanical Engineering </h5>
+    <h5>Indian Institute of Science, Bangalore</h5>
+    <footer>
+      \(
+      %%%% If you see this, MathJax wasn't loaded ...
+      \definecolor{myred}{RGB}{231,76,60}
+      \definecolor{mygreen}{RGB}{38,166,115}
+      \definecolor{myblue}{RGB}{38,89,166}
+      \definecolor{mynormal}{RGB}{41,128,185}
+      \)
+      <img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
+    </footer>
   </section>
-  <section>
-    <h3>Current</h3>
-    <ul> <li> Research Associate - IISc</li>
-      <li> Developing a FVM with subgrid thin film model</li>
-      <li> Water Entry problems using SPH</li>
-    </ul>
-  </section>
-</section>
-
-<section>
-  <section>
-    <h2> Motivation </h2>
-    <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
-    <ul><li> Lesser preprocessing </li>
-      <li> Account for greater geometric complexity  </li>
-      <li> Deformation and fragmentation of domain </li>
-      <li> Unified (monolithic) modelling possibilities  </li>
-      <li class="fragment" data-fragment-index="2"><strong> Meshless methods literature shows promise </strong> </li> 
-    </ul>
-  </section>
-  <section>
-    <h2> SPH Research </h2>
-    <ul><li> One of the oldest Meshless method for continuum</li>
-      <li> Continuous in development</li>
-      <li> Less sensitive initial particle distribution  </li>
-      <li> Higher order shape functions </li>
-      <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
-    </ul>
-  </section>
-</section>
 
   <section>
     <section>
-    <h2> SPH - Introduction </h2>
-    <ul>
-      <li>Continuum domain is discretized into constant mass particles
-      <li>Particles act as interpolation points as well
-      <li>Not tracer particles - SPH is Lagrangian
-      <li>Conceived as moving clumps/distribution of material
-      <li>Characterized by field variables (dynamic and kinematic)
-      <li>Associated kernel function with a support radius
-    </ul>
+      <h2>About Me</h2>
+      <hr>
+      <h3>Previously</h3>
+      <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
+        <li> RA at University of Alabama, USA - Turbulence transition models</li>
+        <li> RWDI - Wind Engineering simulations </li>
+        <li> ISRO - Flight Mechanics Division </li>
+        <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
+      </ul>
+    </section>
+    <section>
+      <h3>Current</h3>
+      <ul> <li> Research Associate - IISc</li>
+        <li> Developing a FVM with subgrid thin film model</li>
+        <li> Water Entry problems using SPH</li>
+      </ul>
+    </section>
   </section>
+
   <section>
-    <div class="box-green" data-title="SPH Principle">
-      \[
-          A(r)= \int_\Omega A(r') W(|r-r'|)dr'
-          \]
-    </div>
-    <div style="float:left;width:600px;height:300px">
-      <div class="fragment" data-fragment-index="1">
-        <div class="parentImg" >
-          <img class="imgNoBorder" style="width:600px;" src="images/drawing-3.svg" />        
+    <section>
+      <h2> Motivation </h2>
+      <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
+      <ul><li> Lesser preprocessing </li>
+        <li> Account for greater geometric complexity  </li>
+        <li> Deformation and fragmentation of domain </li>
+        <li> Unified (monolithic) modelling possibilities  </li>
+        <li class="fragment" data-fragment-index="2"><strong> Meshless methods literature shows promise </strong> </li> 
+      </ul>
+    </section>
+    <section>
+      <h2> SPH Research </h2>
+      <ul><li> One of the oldest Meshless method for continuum</li>
+        <li> Continuous in development</li>
+        <li> Less sensitive initial particle distribution  </li>
+        <li> Higher order shape functions </li>
+        <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2> SPH - Introduction </h2>
+      <ul>
+        <li>Continuum domain is discretized into constant mass particles
+        <li>Particles act as interpolation points as well
+        <li>Not tracer particles - SPH is Lagrangian
+        <li>Conceived as moving clumps/distribution of material
+        <li>Characterized by field variables (dynamic and kinematic)
+        <li>Associated kernel function with a support radius
+      </ul>
+    </section>
+    <section>
+      <div class="box-green" data-title="SPH Principle">
+        \[
+        A(r)= \int_\Omega A(r') W(|r-r'|)dr'
+        \]
+      </div>
+      <div style="float:left;width:600px;height:300px">
+        <div class="fragment" data-fragment-index="1">
+          <div class="parentImg" >
+            <img class="imgNoBorder" style="width:600px;" src="images/drawing-3.svg" />        
+          </div>
+        </div>
+        <div class="fragment" data-fragment-index="2">
+          <div class="innerImg" >
+            <img class="imgNoBorder" style="width:600px;" src="images/gradient.svg"/>          
+          </div>
         </div>
       </div>
-      <div class="fragment" data-fragment-index="2">
-        <div class="innerImg" >
-          <img class="imgNoBorder" style="width:600px;" src="images/gradient.svg"/>          
+      <div style="float:right;width:300px;">
+        <div class="fragment" data-fragment-index="1">
+          Approximation:<small>
+            \[
+            A(\mathbf{r}) \approx \sum _b m_b \frac{A_b}{\rho_b}W(\mathbf{r} -       
+            \mathbf{r}_b,h)
+            \]
+          </small>
+        </div>
+        <div class="fragment" data-fragment-index="2">
+          Derivatives:<small>
+            \[
+            \nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'
+            \] </small>
+        </div>
+        <div class="fragment" data-fragment-index="3">
+          Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
+          Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
+          Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
         </div>
       </div>
-    </div>
-    <div style="float:right;width:300px;">
-      <div class="fragment" data-fragment-index="1">
-        Approximation:<small>
-          \[
-          A(\mathbf{r}) \approx \sum _b m_b \frac{A_b}{\rho_b}W(\mathbf{r} -       
-          \mathbf{r}_b,h)
-          \]
-        </small>
+      <div style="float:right;width:600px;">
+        <div class="fragment" data-fragment-index="4" style="text-align:justify;"><p>
+          Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small>
+          Monotone decreasing, even and sufficiently smooth. </p>
+        </div>
       </div>
-      <div class="fragment" data-fragment-index="2">
-        Derivatives:<small>
-          \[
-          \nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'
-          \] </small>
+    </section>
+    <section>
+      <h2>Derivatives</h2>
+      <div class="box-green" data-title="First">
+        \[
+        \frac{\partial A}{\partial r } = \frac{1}{\Phi}\left( \frac{\partial (\Phi A)}{\partial x    } - A\frac{\partial \Phi}{\partial x}\right),
+        \]
+        which takes the following forms for different values of $\Phi$.
+        \[
+        \left(\frac{\partial A}{\partial r }\right)_{a} = \sum_b \frac{m_b}{\rho_b} \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{ For } \Phi =1 
+        \]
+        \[
+        \left(\frac{\partial A}{\partial r }\right)_{a} = \frac{1}{\rho_a}\sum_b m_b \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{For } \Phi =\rho  
+        \]
       </div>
-      <div class="fragment" data-fragment-index="3">
-        Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
-        Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
-        Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
+      <div class="box-green" data-title="Second">
+        \[
+        \left(\frac{\partial^2 A}{\partial x^i \partial x^j} \right)_a = \sum \limits_b \frac{m_b    }{\rho_b} \left( 4 \frac{\Delta x^i \Delta x^j}{\Delta r^2}-\delta ^{ij}\right)(A_a -A_b)    F_{ab}
+        \]
       </div>
-    </div>
-    <div style="float:right;width:600px;">
-      <div class="fragment" data-fragment-index="4" style="text-align:justify;"><p>
-        Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small>
-        Monotone decreasing, even and sufficiently smooth. </p>
-      </div>
-    </div>
-  </section>
-  <section>
-    <h2>Derivatives</h2>
-    <div class="box-green" data-title="First">
-      \[
-      \frac{\partial A}{\partial r } = \frac{1}{\Phi}\left( \frac{\partial (\Phi A)}{\partial x    } - A\frac{\partial \Phi}{\partial x}\right),
-      \]
-      which takes the following forms for different values of $\Phi$.
-      \[
-      \left(\frac{\partial A}{\partial r }\right)_{a} = \sum_b \frac{m_b}{\rho_b} \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{ For } \Phi =1 
-      \]
-      \[
-      \left(\frac{\partial A}{\partial r }\right)_{a} = \frac{1}{\rho_a}\sum_b m_b \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{For } \Phi =\rho  
-      \]
-    </div>
-    <div class="box-green" data-title="Second">
-      \[
-      \left(\frac{\partial^2 A}{\partial x^i \partial x^j} \right)_a = \sum \limits_b \frac{m_b    }{\rho_b} \left( 4 \frac{\Delta x^i \Delta x^j}{\Delta r^2}-\delta ^{ij}\right)(A_a -A_b)    F_{ab}
-\]
-    </div>
-  </section>
+    </section>
   </section>
   <section>
     <section>
