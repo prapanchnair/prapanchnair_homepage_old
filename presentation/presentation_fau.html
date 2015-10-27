@@ -76,7 +76,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
 <section>
   <section>
-    <h2><u>About Me</u></h2>
+    <h2>About Me</h2>
     <hr>
     <h3>Previously</h3>
     <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
@@ -98,7 +98,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 <section>
   <section>
     <h2> Motivation </h2>
-    There is a need for reduced complexity to solve multi-physics problems.<br/>         
+    <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
     <ul><li> Lesser preprocessing </li>
       <li> Account for greater geometric complexity  </li>
       <li> Deformation and fragmentation of domain </li>
@@ -107,11 +107,123 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     </ul>
   </section>
   <section>
-
-
+    <h2> SPH Research </h2>
+    <ul><li> One of the oldest Meshless method for continuum</li>
+      <li> Continuous in development</li>
+      <li> Less sensitive initial particle distribution  </li>
+      <li> Higher order shape functions </li>
+      <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
+    </ul>
   </section>
 </section>
 
+  <section>
+    <section>
+    <h2> SPH - Introduction </h2>
+    <ul>
+      <li>Continuum domain is discretized into constant mass particles
+      <li>Particles act as interpolation points as well
+      <li>Not tracer particles - SPH is Lagrangian
+      <li>Conceived as moving clumps/distribution of material
+      <li>Characterized by field variables (dynamic and kinematic)
+      <li>Associated kernel function with a support radius
+    </ul>
+  </section>
+  <section>
+    <div class="box-green" data-title="SPH Principle">
+      \[
+          A(r)= \int_\Omega A(r') W(|r-r'|)dr'
+          \]
+    </div>
+    <div style="float:left;width:600px;height:300px">
+      <div class="fragment" data-fragment-index="1">
+        <div class="parentImg" >
+          <img class="imgNoBorder" style="width:600px;" src="images/drawing-3.svg" />        
+        </div>
+      </div>
+      <div class="fragment" data-fragment-index="2">
+        <div class="innerImg" >
+          <img class="imgNoBorder" style="width:600px;" src="images/gradient.svg"/>          
+        </div>
+      </div>
+    </div>
+    <div style="float:right;width:300px;">
+      <div class="fragment" data-fragment-index="1">
+        Approximation:<small>
+          \[
+          A(\mathbf{r}) \approx \sum _b m_b \frac{A_b}{\rho_b}W(\mathbf{r} -       
+          \mathbf{r}_b,h)
+          \]
+        </small>
+      </div>
+      <div class="fragment" data-fragment-index="2">
+        Derivatives:<small>
+          \[
+          \nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'
+          \] </small>
+      </div>
+      <div class="fragment" data-fragment-index="3">
+        Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
+        Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
+        Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
+      </div>
+    </div>
+    <div style="float:right;width:600px;">
+      <div class="fragment" data-fragment-index="4" style="text-align:justify;"><p>
+        Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small>
+        Monotone decreasing, even and sufficiently smooth. </p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Derivatives</h2>
+    <div class="box-green" data-title="First">
+      \[
+      \frac{\partial A}{\partial r } = \frac{1}{\Phi}\left( \frac{\partial (\Phi A)}{\partial x    } - A\frac{\partial \Phi}{\partial x}\right),
+      \]
+      which takes the following forms for different values of $\Phi$.
+      \[
+      \left(\frac{\partial A}{\partial r }\right)_{a} = \sum_b \frac{m_b}{\rho_b} \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{ For } \Phi =1 
+      \]
+      \[
+      \left(\frac{\partial A}{\partial r }\right)_{a} = \frac{1}{\rho_a}\sum_b m_b \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{For } \Phi =\rho  
+      \]
+    </div>
+    <div class="box-green" data-title="Second">
+      \[
+      \left(\frac{\partial^2 A}{\partial x^i \partial x^j} \right)_a = \sum \limits_b \frac{m_b    }{\rho_b} \left( 4 \frac{\Delta x^i \Delta x^j}{\Delta r^2}-\delta ^{ij}\right)(A_a -A_b)    F_{ab}
+\]
+    </div>
+  </section>
+  </section>
+  <section>
+    <section>
+      <h2>Governing Equation</h2>
+      <h3>Continuity (Mass conservation):</h3>
+      $$
+      \frac{1}{\rho}\frac{d \rho}{dt} + \nabla \cdot \mathbf{u} = 0,
+      $$
+      <h3>Momentum conservation:</h3>
+      $$
+      \frac{d \mathbf{u}}{dt} = \frac{1}{\rho}\left(-\nabla p + \nabla \cdot \left(2 \mu \mathbf{D} \right    ) + \mathbf{f}^B\right)
+      $$
+      $$\mathbf{D} = (\nabla\mathbf{u}+\nabla\mathbf{u}^T)/2$$
+    </section>
+    <section>
+      <h2>Incompressibility model</h2>
+      Pressure and density relation for closure:
+      $$
+      p = \frac{\rho_0 c_0^2}{\gamma} \left(\left(\frac{\rho}{\rho_0}\right)^\gamma - 1\right    ),
+      $$
+      leads to <strong>weakly compressible SPH (WCSPH).</strong> </br>
+      Following grid based methods - Projection method:
+      $$
+      \nabla \cdot\left( \frac{\nabla p}{\rho}\right) = -\frac{\nabla \cdot \mbu    
+      }{\Delta t},
+      $$
+      leads to <strong>Incompressible SPH (ISPH)</strong>
+    </section>
+  </section>
 
 <section>
 <section>
