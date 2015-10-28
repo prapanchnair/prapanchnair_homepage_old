@@ -437,12 +437,262 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <h3> Validation - Dam Break</h3>
-    
-    </section>
+          <figure  style="display:inline-block">
+            <img src="images/dambreak_fig.png" class="imgNoBorder" alt="static" width="350px" >
+          </figure> <br>
+          <div style="text-align:center">
+          <figure  style="display:inline-block">
+            <img src="images/height_py.png" class="imgNoBorder" alt="static" width="300px" >
+            <figcaption><small> Column Height </small></figcaption>
+          </figure>
+          <figure  style="display:inline-block">
+            <img src="images/wave_py.png" class="imgNoBorder" alt="static" width="300px" >
+            <figcaption><small> Wave Front </small></figcaption>
+        </figure></div>
+        <small>Comparisons with experiments of Martin and Moyce, 1952.</small>
+  </section>
+  <section>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>Existing Model</th>
+              <th>Proposed Model</th>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_280.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_280.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_650.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_650.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
 
+    </table>
+  </section>
+  <section>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>Existing Model</th>
+              <th>Proposed Model</th>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_900.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_900.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_1300.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_1300.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Validation - Drop splash on liquid film </h3>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>SPH</th>
+              <th>VoF</th>
+              <th>SPH</th>
+              <th>VoF</th>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop1.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop4.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop2.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop5.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop3.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop6.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+          </table>
+          <small> Comparison with <emp>Josserand and Zaleski, 2003</emp></small>
+  </section>
 
+  <section>
+    <div style="float:left;width:350px;">
+      <figure >
+        <img src="images/mo_0.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =0.05$ </small></figcaption>
+      </figure>
+      <figure >
+        <img src="images/mo_1.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =0.1$ </small></figcaption>
+      </figure>
+      <figure>
+        <img src="images/mo_2.png" style="position:absolute;clip:rect(50px,300px,200px,0px);overflow:hidden;bottom:50px" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption ><br><br><br><br><small> $t/\tau =0.7$ </small></figcaption>
+      </figure>
+    </div>
+    <div style="float:right;width:350px;">
+      <figure >
+        <img src="images/profiles3d.png" class="imgNoBorder" alt="static" width="300px" >
+      </figure>
+      <p><small> Comparison of initial profiles near the neck. Dotted lines represent ISPH simulation and the continuous lines denote the results of <em>Josserand and Zaleski,2003</em> </small></p>
+      <figure >
+        <img src="images/mo_3.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =1.5$ </small></figcaption>
+      </figure>
+    </div>
+  </section>
 
-    </section>
+  <section>
+    <h2> Surface tension at free surface</h2>
+    Existing approaches:
+    <ul>
+      <li>For two-phase flows <strong>Continuum Surface Force (CSF)</strong> model      
+    \[
+    \mathbf{F} = (\sigma \kappa \hat{\mathbf{n}}+ \nabla_s \sigma )\delta   
+    \]</li>
+    <li>When single phase is modeled,</li>
+    <ul class="fragment" data-fragment-index="1"> <li> Use inter-particular forces to mimic inter-molecular forces   </li>
+      <li class="fragment highlight-blue" data-fragment-index="2">Geometrically compute the value of $\kappa$ and use in CSF</li></ul>
+  </ul>
+  </section>
+  <section>
+    <h3> Free Surface Detection </h3>
+    <div style="float:left;width:50%;">
+      <img src="images/surface_particles.png" class="imgNoBorder" width="100%">
+ </div>
+    <div style="float:right;width:50%;">
+      <ul>
+        <li> Reflect unit vector about particle $a$</li>
+        <li> Check with all neighboring $b$ if included angle is $<\pi/4$  </li>        
+        <li> At least one reflected vector has no adjacent vector, mark it as free surface</li>
+      </ul>
+      </div>
+  </section>
+  <section>
+    <h3> Local Coordinate Transform </h3>
+    <table>
+      <tr><td>
+ <img src="images/coordinate_transform_2d.png" class="imgNoBorder" width="100%">
+      </td>
+        <td>
+ <img src="images/coordinate_transform_3d.png" class="imgNoBorder" width="100%">
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Reconstructed Interface </h3>
+    <table>
+      <tr>
+        <th> 2 Dimensions</th>
+        <th> 3 Dimensions</th>
+      </tr>
+      <tr><td>
+          \[
+          P(x) = \sum_j P_j(x),
+          \]
+          where
+          \[
+          P_j(x) = y_j\prod \limits_{k\neq j} \frac{x-x_k}{x_j - x_k}.          
+          \]
+        </td>
+        <td>
+          Moving Least Squares:
+          \[ 
+          p^{T} = [1,x,y,x^2, xy,y^2].
+          \]
+          The reconstructed surface function can be given as:
+          \[
+          z^h(\vec{x}) = \sum\limits_{i=1}^{m} p_i(\vec{x})a_i(\vec{x})\\
+          \equiv p^{T}
+          (\vec{x} )\cdot a(\vec{x}),
+          \]
+          which minimizes the function
+          \[     
+          J = \sum\limits_i (z^h(\vec{x},\vec{x}_l) - z(\vec{x}_l))^2 \\
+          = (Pa - z)^T
+          (Pa-z), 
+          \]
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Validation cases </h3>
+    <div style="float:left;width:50%">
+      <video width="400" height="300" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_st_2d.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <img src="images/pressure_lagrange_st.png" width="100%" class="imgNoBorder">
+    </div>
+    <div style="float:right;width:50%">
+      <video width="400" height="300" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_cube.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <video width="440" height="330" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_coal_p_int.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+    </div>
+  </section>
+</section>
+<section>
+  <section>
+    <h2>Volume Conservation in ISPH </h2>
+    <ul>
+      <li>  Divergence-free velocity is the condition for incompressibility   </li>
+      <li>  When finite time step updates are used, conservation may not be satisfied.
+      \[ \frac{1}{\rho}\frac{d\rho}{dt} = -\nabla \cdot \mathbf{u} \]
+      </li>
+      <li class="fragment current-visible" data-fragment-index="1"> <strong> Can we achieve better volume conservation while retaining simplicity of first order time updates? </strong></li>
+    </ul>
+  </section>
+  <section >
+    <h3>Volume Loss </h3>
+    <div style="text-align:left"> 
+    For explicit Euler time step,
+    \[
+    \mathbf{r}^{n+1} =  \mathbf{r} + \Delta t \mathbf{u}_{DF}.
+    \]
+    The corresponding gradient of this deformation can be written as,       
+    \[
+    \mathbf{F}^{n+1} =  \mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}.
+    \]
+    \[
+    \det(\mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}) = 1
+    \]
+    Using  Cayley-Hamilton theorem,
+    \[
+    \underbrace{\Delta t I_1 + \Delta t^2 I_2}_{\text{for 2D}} + \Delta t^3 I_3 = 0. 
+    \]
+    $I_1$ corresponds to zero divergence:
+    \[
+    I_1 = \text{tr}\nabla \mathbf{u}_{DF} = \nabla \cdot  \mathbf{u}_{DF} = 0, \nonumber
+    \]
+    <em>$I_2$, $I_3$ would vanish only for a vanishing $\Delta t$.</em>
+  </div>
+  </section>
+  <section>
+  </section>
+  <section>
+  </section>
+  <section>
+  </section>
+
+</section>
 
 
     <section>
