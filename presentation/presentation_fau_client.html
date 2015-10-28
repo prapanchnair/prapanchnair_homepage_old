@@ -53,68 +53,400 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
 <div class="reveal">
 
-<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-<section>
-<h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
-    Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
-<h4>Prapanch Nair</h4> </br>
-<h5>Multiphase Flow Simulations Lab </h5>
-<h5>Dept. of Mechanical Engineering </h5>
-<h5>Indian Institute of Science, Bangalore</h5>
-<footer>
-\(
-%%%% If you see this, MathJax wasn't loaded ...
-\definecolor{myred}{RGB}{231,76,60}
-\definecolor{mygreen}{RGB}{38,166,115}
-\definecolor{myblue}{RGB}{38,89,166}
-\definecolor{mynormal}{RGB}{41,128,185}
-\)
-<img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
-</footer>
-</section>
+  <!-- Any section element inside of this container is displayed as a slide -->
+  <div class="slides">
+    <section>
+      <h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
+          Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
+      <h4>Prapanch Nair</h4> </br>
+      <h5>Multiphase Flow Simulations Lab </h5>
+      <h5>Dept. of Mechanical Engineering </h5>
+      <h5>Indian Institute of Science, Bangalore</h5>
+      <footer>
+        \(
+        %%%% If you see this, MathJax wasn't loaded ...
+        \definecolor{myred}{RGB}{231,76,60}
+        \definecolor{mygreen}{RGB}{38,166,115}
+        \definecolor{myblue}{RGB}{38,89,166}
+        \definecolor{mynormal}{RGB}{41,128,185}
+        \)
+        <img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
+      </footer>
+    </section>
 
-<section>
-  <section>
-    <h2><u>About Me</u></h2>
-    <hr>
-    <h3>Previously</h3>
-    <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
-      <li> RA at University of Alabama, USA - Turbulence transition models</li>
-      <li> RWDI - Wind Engineering simulations </li>
-      <li> ISRO - Flight Mechanics Division </li>
-      <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
-    </ul>
-  </section>
-  <section>
-    <h3>Current</h3>
-    <ul> <li> Research Associate - IISc</li>
-      <li> Developing a FVM with subgrid thin film model</li>
-      <li> Water Entry problems using SPH</li>
-    </ul>
-  </section>
-</section>
+    <section>
+      <section>
+        <h2>About Me</h2>
+        <hr>
+        <h3>Previously</h3>
+        <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
+          <li> RA at University of Alabama, USA - Turbulence transition models</li>
+          <li> RWDI - Wind Engineering simulations </li>
+          <li> ISRO - Flight Mechanics Division </li>
+          <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h3>Current</h3>
+        <ul> <li> Research Associate - IISc</li>
+          <li> Developing a FVM with subgrid thin film model</li>
+          <li> Water Entry problems using SPH</li>
+        </ul>
+      </section>
+    </section>
 
-<section>
-  <section>
-    <h2> Motivation </h2>
-    There is a need for reduced complexity to solve multi-physics problems.<br/>         
-    <ul><li> Lesser preprocessing </li>
-      <li> Account for greater geometric complexity  </li>
-      <li> Deformation and fragmentation of domain </li>
-      <li> Unified (monolithic) modelling possibilities  </li>
-      <li class="fragment" data-fragment-index="2"><strong> Meshless methods literature shows promise </strong> </li> 
-    </ul>
-  </section>
-  <section>
+    <section>
+      <section>
+        <h2> Motivation </h2>
+        <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
+        <ul><li> Lesser preprocessing </li>
+          <li> Account for greater geometric complexity  </li>
+          <li> Deformation and fragmentation of domain </li>
+          <li> Unified (monolithic) modelling possibilities  </li>
+          <li class="fragment" data-fragment-index="2"><strong> Meshless methods literature shows promise </strong> </li> 
+        </ul>
+      </section>
+      <section>
+        <h2> SPH Research </h2>
+        <ul><li> One of the oldest Meshless method for continuum</li>
+          <li> Continuous in development</li>
+          <li> Less sensitive initial particle distribution  </li>
+          <li> Higher order shape functions </li>
+          <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
+        </ul>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2> SPH - Introduction </h2>
+        <ul>
+          <li>Continuum domain is discretized into constant mass particles
+          <li>Particles act as interpolation points as well
+          <li>Not tracer particles - SPH is Lagrangian
+          <li>Conceived as moving clumps/distribution of material
+          <li>Characterized by field variables (dynamic and kinematic)
+          <li>Associated kernel function with a support radius
+        </ul>
+      </section>
+      <section>
+        <div class="box-green" data-title="SPH Principle">
+          \[
+          A(r)= \int_\Omega A(r') W(|r-r'|)dr'
+          \]
+        </div>
+        <div style="float:left;width:600px;height:300px">
+          <div class="fragment" data-fragment-index="1">
+            <div class="parentImg" >
+              <img class="imgNoBorder" style="width:600px;" src="images/drawing-3.svg" />        
+            </div>
+          </div>
+          <div class="fragment" data-fragment-index="2">
+            <div class="innerImg" >
+              <img class="imgNoBorder" style="width:600px;" src="images/gradient.svg"/>          
+            </div>
+          </div>
+        </div>
+        <div style="float:right;width:300px;">
+          <div class="fragment" data-fragment-index="1">
+            Approximation:<small>
+              \[
+              A(\mathbf{r}) \approx \sum _b m_b \frac{A_b}{\rho_b}W(\mathbf{r} -       
+              \mathbf{r}_b,h)
+              \]
+            </small>
+          </div>
+          <div class="fragment" data-fragment-index="2">
+            Derivatives:<small>
+              \[
+              \nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'
+              \] </small>
+          </div>
+          <div class="fragment" data-fragment-index="3">
+            Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
+            Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
+            Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
+          </div>
+        </div>
+        <div style="float:right;width:600px;">
+          <div class="fragment" data-fragment-index="4" style="text-align:justify;"><p>
+            Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small>
+            Monotone decreasing, even and sufficiently smooth. </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Derivatives</h2>
+        <div class="box-green" data-title="First">
+          \[
+          \frac{\partial A}{\partial r } = \frac{1}{\Phi}\left( \frac{\partial (\Phi A)}{\partial x    } - A\frac{\partial \Phi}{\partial x}\right),
+          \]
+          which takes the following forms for different values of $\Phi$.
+          \[
+          \left(\frac{\partial A}{\partial r }\right)_{a} = \sum_b \frac{m_b}{\rho_b} \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{ For } \Phi =1 
+          \]
+          \[
+          \left(\frac{\partial A}{\partial r }\right)_{a} = \frac{1}{\rho_a}\sum_b m_b \left(A_b -     A_a\right) \frac{\partial W_{ab}}{\partial r_a}  \text{For } \Phi =\rho  
+          \]
+        </div>
+        <div class="box-green" data-title="Second">
+          \[
+          \left(\frac{\partial^2 A}{\partial x^i \partial x^j} \right)_a = \sum \limits_b \frac{m_b    }{\rho_b} \left( 4 \frac{\Delta x^i \Delta x^j}{\Delta r^2}-\delta ^{ij}\right)(A_a -A_b)    F_{ab}
+          \]
+        </div>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h2>Governing Equation</h2>
+        <div class="box-green" data-title="Continuity">
+        $$
+        \frac{1}{\rho}\frac{d \rho}{dt} + \nabla \cdot \mathbf{u} = 0,
+        $$
+      </div>
+        <div class="box-green" data-title="Momentum conservation">
+        $$
+        \frac{d \mathbf{u}}{dt} = \frac{1}{\rho}\left(-\nabla p + \nabla \cdot \left(2 \mu \mathbf{D} \right    ) + \mathbf{f}^B\right)
+        $$
+        $$\mathbf{D} = (\nabla\mathbf{u}+\nabla\mathbf{u}^T)/2$$
+      </div>
+      </section>
+      <section>
+        <h2>Incompressibility model</h2> 
+        <div class="box-green" data-title=" Weakly Compressible SPH"><p style="text-align:left">
+        Pressure and density relation for closure:
+        $$
+        p = \frac{\rho_0 c_0^2}{\gamma} \left(\left(\frac{\rho}{\rho_0}\right)^\gamma - 1\right    ),
+        $$
+      </p> </div>
+        <div class="box-green" data-title="(Truly?) Incompressible SPH (ISPH)"><p style="text-align:left">
+        Following grid based methods - Projection method:
+        $$
+        \nabla \cdot\left( \frac{\nabla p}{\rho}\right) = -\frac{\nabla \cdot \mathbf{u}    
+        }{\Delta t},
+        $$
+        </strong></p></div>
+      </section>
+      <section>
+        <h2> ISPH </h2>
+        <div class="box-green" data-title="Advantages">
+          <ul>
+            <li>Reliable </li>
+            <li>Smoother pressure and velocity fields</li>
+            <li>Coarser grid</li>
+            <li>Larger time steps (2 to 20 times faster)</li>
+          </ul>
+        </div>
+        <div class="box-green" data-title="Difficulties">
+          <ul>
+            <li>Linear solver on particle domain</li>
+            <ul>
+              <li> Programming complexity</li>
+              <li> Parallelization of Solver</li>
+              <li> Unordered sparse matrices</li>
+            </ul>
+            <li>Application of Boundary conditions</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div style="font-size:70%;">
+          <h3>Algorithm</h3>
+          While $t \leq \text{ end time}$:<br> 
+          <ul>
+            <li class="fragment highlight-current-blue" data-fragment-index=1> $\mathbf{u}^* \gets \mathbf{u}^{n} + \frac{\Delta t}{\rho}\left(\nabla\cdot(\mu \mathbf{D}^n) + \mathbf{f}^B \right) $ </li>
+            <li class="fragment highlight-current-blue" data-fragment-index=2> $p \gets $ soln. of $\nabla\cdot \left(\nabla p / \rho\right) = \nabla \cdot\mathbf{u}^* /\Delta t$ ;</li>
+            <li class="fragment highlight-current-blue" data-fragment-index=3>$\mathbf{u}^{n+1} \gets \mathbf{u}^{*} - \Delta t (\nabla p/\rho)$ ;</li>
+            <li class="fragment highlight-current-blue" data-fragment-index=4>$\mathbf{r}^{n+1} \gets \mathbf{r}^{n} + \Delta t \mathbf{u}^{n+1}$;</li>
+            <li class="fragment highlight-current-blue" data-fragment-index=5>$t \gets t+\Delta t$;  $n\gets n+1$; </li>
+          </ul>   
+        </div>
+        <div style="font-size:70%;">
+          <div class ="box-green" data-title="Approximation" style="height:120px">
+            <div class="fragment current-visible" data-fragment-index=1>
+              Viscous:
+                \[
+                \nabla \cdot \left(\frac{\mu \mathbf{D}}{\rho} \right)_a
+                = \sum_b 8m_b  \frac{(\mu/\rho)_a + (\mu/\rho)_b}{\rho_a 
+                +\rho_b}\frac{\mathbf{u}_{ab} \cdot \mathbf{r}_{ab}}{r_{ab}^{2}+\eta^2}
+                \nabla_a W(\mathbf{r}_{ab},h) \] 
+            </div>
+            <div class="fragment current-visible" data-fragment-index=2 style="top:-115px;position:relative">
+              Laplacian:<br>
+
+              \[ \nabla \cdot \left( \frac{\nabla p}{\rho}\right)_a =\sum_{b}
+              \frac{m_b}{\rho_b}\frac{4}{\rho_a     +\rho_b}\left(p_a - p_b\right)     
+              F_{ab}. \]
+            </div>
+            <div class="fragment current-visible" data-fragment-index=3 style="top:-225px;position:relative">
+              Gradient of pressure:
+
+              \[ \left(\frac{\nabla p}{\rho }\right)_{a} =
+              \sum_b m_b \left(  \frac{p_a}{\rho_a^2} +\frac{p_b}{\rho_b^2}\right)        
+              \nabla_a W_{ab} 
+              \]
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h4> Wall Boundary</h4>
+        <div style="text-align:center">
+          <figure  style="display:inline-block">
+            <img src="images/wall_bc_static.png" class="imgNoBorder" alt="static" width="250px" >
+            <figcaption><small>Static</small></figcaption>
+          </figure> 
+          <figure style="display:inline-block;" >
+            <img src="images/wall_bc_mirror.png" class="imgNoBorder" alt="static" width="250px" >
+            <figcaption><small>Mirror Static</small></figcaption>
+          </figure>
+        </div>
+        <div style="text-align:center">
+          <figure > 
+            <img src="images/wall_bc.png" class="imgNoBorder" alt="static" width="550px" >
+            <figcaption><small>Ghost Particles</small></figcaption>
+          </figure>
+        </div>
+
+      </section>
+    
+    </section>
+    <section>
+      <section>
+        <h1> Computer Implementation</h1>
+      </section>
+      <section>
+        <h2> Database </h2>
+        <ul>
+          <li>C language - array of <tt>struct</tt> with member data</li>
+          <li>Underlying mesh of width $r_c$ </li> </ul>
+        <figure>
+          <img src="images/cells_particles.png" class="imgNoBorder" alt="data" width="550px">
+        </figure>
+        <ul> <li>Cells parallelized using OpenMP</li>
+          <li>Operations on the particle - update and interact</li>
+        </ul>
+      </section>
+      <section>
+        <h2> Interactions </h2>
+        <figure>
+          <img src="images/sph_datastruct.png" class="imgNoBorder" alt="data" width="750px">
+        </figure>
+      </section>
+      <section >
+        <h2> Linear Solver </h2>
+        <div style="text-align:justify">
+        <ul >
+          <li> Solving on a irregular domain of particles</li>
+          <li> COO-data structure (also used in unstructured meshes)</li> </ul> </div>
+        <figure>
+          <img src="images/coo_format.png" class="imgNoBorder" alt="data" width="700px">
+        </figure> 
+        <div style="text-align:justify">
+        <ul >  
+          <li>BiCGSTAB Solver - external library (LIS)</li>
+      </ul> </div>
+      </section>
+    </section>
+
+    <section>
+    <section>
+      <h1> Improvements to ISPH </h1>
+    </section>
+    <section>
+      <h2> Free Surface Modeling</h2>
+      <ul>
+        <li> Free surface implies Dirichlet BC for pressure equation.</li>
+        <li> Traditionally $p=0$ is applied at identified particles</li>
+        <li> Identification by $\nabla \cdot \mathbf{r} \leq \alpha$ or $\sum_b W(r,h)m_b / \rho_b \leq \alpha$ </li>
+         <li>Order of accuracy deteriorates</li>
+       </ul>
+        <div style="text-align:center">
+          <figure  style="display:inline-block">
+            <img src="images/freesurf_lit.png" class="imgNoBorder" alt="static" width="700px" >
+            <figcaption><small>Lee et al., 2008 (left), Asai et al., 2012 (right)</small></figcaption>
+          </figure> 
+        </div>
+      </ul>
+    </section>
+    <section>
+      <h2> New Model </h2>
+          <figure  style="display:inline-block">
+            <img src="images/freesurf2.png" class="imgNoBorder" alt="static" width="800px" >
+          </figure> 
+    </section>
+    <section>
+      <h2> Model Derivation </h2>
+      <div style="font-size:80%">
+      \[
+      \nabla \cdot \left( \frac{\nabla P}{\rho}\right)_a =\sum_{b } \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}\left(P_a - P_b\right) F_{ab}  
+      \]             
+      The above second derivative approximation can be split as:
+      \[
+      \nabla \cdot \left( \frac{\nabla P}{\rho}\right)_a =\sum_{b} \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_a
+      F_{ab} - \sum_{b} \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_b F_{ab}       
+      \]
+
+      For a full kernel of a particle <strong>near the interface</strong>
+      \[
+      \nabla \cdot \left( \frac{\nabla P}{\rho}\right)_a = \sum_{b } \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_a F_{ab} - \sum_{b_i}\frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_b F_{ab} 
+      \]
+      \[ 
+      -  \sum_{b_o} \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b} P_o F_{ab}  \]  
+      \[
+      =  (P_a - P_o)  \kappa - \sum_{b_i} \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_b F_{ab} + \sum_{b_i} \frac{m_b}{\rho_b}\frac{4}{\rho_a +\rho_b}P_o F_{ab} 
+      \]
+      where, the value of $\kappa = \sum_b \frac{m_b}{\rho_b} \frac{4}{\rho_a +\rho_b} F_{ab}$ remains constant
+    </div>
+    </section>
+
+    <section>
+      <h3> Validation - Drop Elongation </h3>
+          <figure  style="display:inline-block">
+            <img src="images/zoom_c.png" class="imgNoBorder" alt="static" width="600px" >
+            <figcaption><small> Pressure contours- left: $\nabla \cdot \mathbf{r} \leq 1.5$, right: proposed model</small></figcaption>
+          </figure>
+          <div style="text-align:center">
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>Time $s$ </th>
+              <th>Theory</th>
+              <th>New Method</th>
+              <th>Old Method</th>
+            </tr>
+            <tr>
+              <td>0.0008</td>
+              <td>1.083</td>
+              <td>1.1</td>
+              <td>1.1</td>
+            </tr>
+            <tr>
+              <td>0.0038</td>
+              <td>1.44</td>
+              <td>1.432</td>
+              <td>1.415</td>
+            </tr>
+            <tr>
+              <td>0.0076</td>
+              <td>1.95</td>
+              <td>2.00</td>
+              <td>2.047</td>
+            </tr>
+        </table> </div>
+    </section>
+
+    <section>
+      <h3> Validation - Dam Break</h3>
+    
+    </section>
 
 
-  </section>
-</section>
+
+    </section>
 
 
-<section>
-<section>
+    <section>
+      <section>
 <h3>CFD Simulations </h3>
 <div class="box-green" data-title="Challenges" style="float:left;width:70%;top:1em">
 <ul><li class="fragment" data-fragment-index="1">High Density ratio</li>
