@@ -685,11 +685,87 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <em>$I_2$, $I_3$ would vanish only for a vanishing $\Delta t$.</em>
   </div>
   </section>
+
   <section>
+    <h3> Volume loss - Demonstration </h3>
+    <div style="text-align:left">
+    At time $t =  m\Delta t$, the area ratio: $ A(t)/A(0) = \left( 1 + \Delta t^2 I_2\right)^{m}$
+    \[
+    \mathbf{u}_{2D} = -100x\hat{\mathbf{i}} + 100y\hat{\mathbf{j}} \qquad \quad 
+    \mathbf{u}_{3D} = 100x\hat{\mathbf{i}} - 50y\hat{\mathbf{j}} - 50z\hat{\mathbf{k}}
+   \]
+   <table>
+     <tr>
+       <img src="images/vol/Fig_1a.png" class="imgNoBorder" width="400px">
+     </tr>
+     <tr>
+       <img src="images/vol/Fig_1b.png" class="imgNoBorder" width="400px">
+     </tr>
+   </table>
+    For Predictor Corrector updates:
+    \[
+    A(t)/A(0) = \left(1+ \Delta t G_1 + \Delta t^2 G_2 \right)^m,
+    \]
+    $G_1$ and $G_2$: invariants of  $\nabla\mathbf{u}_{DF}^n + \Delta t (\nabla \mathbf{u}_{DF}^n)^2/2$.
+    </div>
+  </section>
+  
+  <section>
+    <h3> Proposed Pressure Equation </h3>
+    <div style="text-align:left">
+      Let $\tilde{\mathbf{u}} = \Delta t \nabla p/\rho$ be the component of velocity that projects onto a divergence free field at every time step. 
+      Solve for $p$, using the condition $ \det(\mathbf{I} + \Delta t \nabla \mathbf{u}) = 1$:
+      \[
+      1 = \det\left((\mathbf{I} +\Delta t \nabla \mathbf{u^*} ) +\Delta t \nabla \tilde{\mathbf{u}}\right) \\
+      = \det\left( \mathbf{A} + \frac{\Delta t^2}{\rho} \nabla (\nabla p)\right)\\   
+      = \det\mathbf{A} +\text{cof}(\mathbf{A}):\frac{\Delta t^2}{\rho}\nabla(\nabla p) + \mathcal{O}(\Delta t^4)
+      \]
+      where, $\mathbf{A} = \mathbf{I} +\Delta t \nabla \mathbf{u}^*$
+      For a 2D domain:
+      \[
+      1-\det\mathbf{A} = \frac{\Delta t ^2}{\rho}\left( a_{22} \frac{\partial^2 p}{\partial x ^2} + a_{11}\frac{\partial^2 p }{\partial y^2} - (a_{12} + a_{21} ) \frac{\partial ^2 p}{\partial x \partial y     }\right).
+      \]
+    </div>
+  </section>
+ 
+  <section>
+    <h3> Volume Conservation - Free Surface</h3>
+    <div style="text-align:center">
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2a.jpeg" width="250px" class="imgNoBorder">
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2b.jpeg" width="250px" class="imgNoBorder">
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2c.jpeg" width="250px" class="imgNoBorder">
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_3a.png" width="400px" class="imgNoBorder"><br>
+        <small> 2D elliptical droplet </small>
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_3b.png" width="400px" class="imgNoBorder"><br>
+        <small> 3D prolate droplet </small>
+      </div>
+    </div>
   </section>
   <section>
-  </section>
-  <section>
+    <h3> Volume Conservation - Internal Flows </h3>
+    <table>
+      <tr>
+        <td valign="middle" style="vertical-align:middle">
+          <img src="images/vol/Fig_4a.png" width="700px" class="imgNoBorder">
+        </td><td valign="middle" style="vertical-align:middle"> $ Re =400$ </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:middle">
+          <img src="images/vol/Fig_4b.png" width="700px" class="imgNoBorder">
+        </td><td style="vertical-align:middle"> $ Re =1000$ </td>
+      </tr>
+      </table>
   </section>
 
 </section>
