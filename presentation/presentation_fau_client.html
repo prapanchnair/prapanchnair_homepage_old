@@ -437,252 +437,379 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <h3> Validation - Dam Break</h3>
-    
-    </section>
-
-
-
-    </section>
-
-
-    <section>
-      <section>
-<h3>CFD Simulations </h3>
-<div class="box-green" data-title="Challenges" style="float:left;width:70%;top:1em">
-<ul><li class="fragment" data-fragment-index="1">High Density ratio</li>
-<li class="fragment" data-fragment-index="2"> Coalescence and Breakup</li>
-<li class="fragment" data-fragment-index="2"> Free Surfaces</li>
-<li class="fragment" data-fragment-index="2"> Surface tension</li>
-<li class="fragment" data-fragment-index="3"> Compressibility of phases</li>
-<li class="fragment" data-fragment-index="3"> Phase Change</li>
-</ul>
-</div>
-<div style="float:right;width:25%;display:inline-block" class="fragment" data-fragment-index="2"> <img
-class="imgNoBorder" src="img/droplet.png"/></div>
-
-<div style="float:left;width:70%;top:1em" class="fragment" data-fragment-index="2">
-<img class="imgNoBorder" src="img/twophase.png"/>
-</div>
-</section>
-<section>
-<h3> CFD Modeling Techniques</h3>
-<div class="tree" >
-  <ul>
-    <li> <a href="#">Simulation</a>
-      <ul>
-        <li> <a href="#">Eulerian</a>
-          <ul>
-            <li> <a href="#">Volume of Fluids</a> 
-              <ul class="fragment">
-                <li> <a href="#">Great Grand Child</a></li>
-                <li> <a href="#">Great Grand Child</a></li>
-              </ul>
-            <li> <a href="#">Level Set</a> 
-            
-            </li>
-          </ul>
-        </li>
-        <li> <a href="#">Lagrangian</a>
-          <ul class="fragment">
-            <li><a href="#">Meshless Methods</a></li>
-            <li><a href="#">LBM</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
-</section>
-</section>
-<section>
-<h3>Smoothed Particle Hydrodynamics (SPH)</h3>
-<div class="box-green" data-title="Governing Eqns.">
-\[
-\rho \frac{D\mathbf{u}}{Dt} = \rho \mathbf{f} -\nabla p +\mu \nabla^2 \mathbf{u}
-\]
-</div>
-<div style="float:left">
-<div class="fragment" data-fragment-index="1">
-<div class="parentImg" >
-<img class="imgNoBorder" style="width:600px;" src="img/drawing-3.svg" />
-</div></div>
-<div class="fragment" data-fragment-index="2">
-<div class="innerImg" >
-<img class="imgNoBorder" style="width:600px;" src="img/gradient.svg"/>
-</div></div>
-</div>
-<div style="float:right;width:300px;">
-<div class="fragment" data-fragment-index="1">
-Approximation:<small>
-\[ 
-A(r)= \int_\Omega A(r') W(|r-r'|)dr'   
-\]</small>
-</div>
-<div class="fragment" data-fragment-index="2">
-Derivatives:<small>
-\[ 
-\nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'   
-\] </small>
-</div>
-</div>
-<div class="fragment" data-fragment-index="3" style="clear:both;position:relative;top:100px;">
-<div class="box-red" data-title="Features" >
-  <ul>
-    <li>Compressible & Incompressible (Weakly Compressible/ISPH)</li>
-    <li>Naturally modeled interfaces</li>
-  </ul>
-</div></div>
-</section>
-<section>
-  <h3> Code Features</h3>
-  <ul>
-    <li class="fragment"> C code, revision controlled using <strong>git</strong></li>
-    <li class="fragment"> 2D and 3D with <strong>OpenMP</strong> parallelization (shared memory)</li>
-    <li class="fragment"> External, internal, multiphase flows</li>
-    <li class="fragment"> <strong>Rigid body</strong> interactions</li>
-    <li class="fragment"> Compressible and incompressible phases</li>
-    <li class="fragment"> Surface tension model in 2D and 3D(under development)</li>
-  </ul>
-</section>
-
-<section>
-<section>
-  <h3>Simulations</h3>
+          <figure  style="display:inline-block">
+            <img src="images/dambreak_fig.png" class="imgNoBorder" alt="static" width="350px" >
+          </figure> <br>
+          <div style="text-align:center">
+          <figure  style="display:inline-block">
+            <img src="images/height_py.png" class="imgNoBorder" alt="static" width="300px" >
+            <figcaption><small> Column Height </small></figcaption>
+          </figure>
+          <figure  style="display:inline-block">
+            <img src="images/wave_py.png" class="imgNoBorder" alt="static" width="300px" >
+            <figcaption><small> Wave Front </small></figcaption>
+        </figure></div>
+        <small>Comparisons with experiments of Martin and Moyce, 1952.</small>
   </section>
-<section>
-<h3> Water Entry/Exit </h3>
-<div style="float:left;width:30%;">
-<img class="imgNoBorder" src="img/Graphs/fig_10a.jpg" style="padding:0;margin:0">
-<img class="imgNoBorder" src="img/Graphs/fig_10d.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_10e.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_10f.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_10h.jpg" style="padding:0;margin:0" >
-</div>
-<div style="position:absolute;width:40%;padding-left:275px">
-<img class="imgNoBorder" src="img/Graphs/fig_11.png" style="padding:0;margin:0" >
-<a style="padding-left:50px;"><small style="text-align:center;">Water Entry - Penetration</small></a>
-<img class="imgNoBorder" src="img/Graphs/fig_14.png" style="padding-top:50px;margin:0" >
-<a style="padding-left:50px;"><small style="text-align:center;">Water Exit - Velocity</small></a>
-</div>
-<div style="float:right;width:33%;">
-<img class="imgNoBorder" src="img/Graphs/fig_13a.jpg" style="padding:0;margin:0">
-<img class="imgNoBorder" src="img/Graphs/fig_13b.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_13c.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_13d.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_13e.jpg" style="padding:0;margin:0" >
-<img class="imgNoBorder" src="img/Graphs/fig_13f.jpg" style="padding:0;margin:0" >
-</div>
-</section>
-<section >
-  <div style="background-image:url(img/figs/mo3.png);background-size:100%;background-position:bottom">
-<img style="width:32%;float:left;border:5px solid white;" src="img/figs/mo0000.png"/>
-<img style="width:32%;float:left;border:5px solid white" src="img/figs/mo1.png"/>
-<img style="width:32%;float:right;border:6px solid white" src="img/figs/mo2.png"/> 
- 
-    <h3 style="color:#ffffff;padding-top:0px;"> &nbsp; Droplet Splash </h3>
-    <br/>
-    <br/>
-    <br/>
-    <p style="color:#ffffff;padding-top:100px;"><small> &nbsp; No. of Particles:    3 million <br/> &nbsp; Droplet Diameter:   2 mm <br/> &nbsp; Liquid film thickness: 0.3 mm <br/> &nbsp; Impact Sped:  10 m/s</small></p></h3>
-  <hr/>
-   <div style="clear:both;float:center;width:100%;padding-top:0px;padding-left:10px">
-      <small style="color:#ffffff" > SPH Vs VOF <sup style="font-size:50%;">1</sup></small><br/>
-      <img class="imgNoBorder" src="img/figs/drop2.png" style="width:300px;padding:0px 5px;margin:0px"><img class="imgNoBorder" src="img/figs/drop4.png" style="width:300px;padding:0px 5px;margin:0px"><img class="imgNoBorder" src="img/figs/drop5.png" style="width:300px;padding:0px 5px;margin:0px">
+  <section>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>Existing Model</th>
+              <th>Proposed Model</th>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_280.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_280.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_650.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_650.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+
+    </table>
+  </section>
+  <section>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>Existing Model</th>
+              <th>Proposed Model</th>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_900.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_900.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+            <tr>
+              <td> 
+            <img src="images/db_old_c_1300.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+              <td>
+            <img src="images/db_new_c_1300.png" class="imgNoBorder" alt="static" width="350px" >
+              </td>
+            </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Validation - Drop splash on liquid film </h3>
+          <table style="width:100%;font-size:80%">
+            <tr>
+              <th>SPH</th>
+              <th>VoF</th>
+              <th>SPH</th>
+              <th>VoF</th>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop1.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop4.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop2.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop5.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+            <tr>
+              <td colspan="2"> <img src="images/images_drop/drop3.png" class="imgNoBorder" alt="static" width="350px"> </td>
+              <td colspan="2"> <img src="images/images_drop/drop6.png" class="imgNoBorder" alt="static" width="350px"> </td>
+            </tr>
+          </table>
+          <small> Comparison with <emp>Josserand and Zaleski, 2003</emp></small>
+  </section>
+
+  <section>
+    <div style="float:left;width:350px;">
+      <figure >
+        <img src="images/mo_0.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =0.05$ </small></figcaption>
+      </figure>
+      <figure >
+        <img src="images/mo_1.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =0.1$ </small></figcaption>
+      </figure>
+      <figure>
+        <img src="images/mo_2.png" style="position:absolute;clip:rect(50px,300px,200px,0px);overflow:hidden;bottom:50px" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption ><br><br><br><br><small> $t/\tau =0.7$ </small></figcaption>
+      </figure>
     </div>
-
-</div>
-<small><sup style="font-size:50%;">1-</sup> C. Josserand, S. Zaleski, Droplet Splashing on Thin Liquid Film, Phys. Fluids 15(6) (2003) 1650-1657</small>
-</section>
-<section>
-  <h3>Lid Driven Cavity</h3>
-      <img class="imgNoBorder" src="img/uv_re400.png" style="width:80%;">
-      <img class="imgNoBorder" src="img/uv_re1000.png" style="width:80%;">
-
-</section>
-<section>
-  <h3>Surface Tension</h3>
-  <img class="imgNoBorder" style="float:center" src="img/surftens.gif" style="width:80%;"><br/>
-  <h3>Flow around Cylider (Re=100)</h3>
-      <img class="imgNoBorder" style="float:center" src="img/fpcyl.gif" style="width:100%;">
-
-</section>
-<section>
-  <h3> Rayleigh Plesset problem</h3>
-  <img class="imgNoBorder" style="float:center" src="img/rayleigh.png" style="width:80%;"><br/>
-
-
-</section>
+    <div style="float:right;width:350px;">
+      <figure >
+        <img src="images/profiles3d.png" class="imgNoBorder" alt="static" width="300px" >
+      </figure>
+      <p><small> Comparison of initial profiles near the neck. Dotted lines represent ISPH simulation and the continuous lines denote the results of <em>Josserand and Zaleski,2003</em> </small></p>
+      <figure >
+        <img src="images/mo_3.png" class="imgNoBorder" alt="static" width="300px" >
+        <figcaption><small> $t/\tau =1.5$ </small></figcaption>
+      </figure>
+    </div>
   </section>
-<!--<section>
-<h1>Preliminaries</h1>
-</section>-->
-<section>
-<section>
-<h3> Effervescent Jet Atomization</h3>
-<a class="fragment"> 
-<img  class="imgNoBorder" src="img/figs/atomization_schematic.svg" /></a>
+
+  <section>
+    <h2> Surface tension at free surface</h2>
+    Existing approaches:
+    <ul>
+      <li>For two-phase flows <strong>Continuum Surface Force (CSF)</strong> model      
+    \[
+    \mathbf{F} = (\sigma \kappa \hat{\mathbf{n}}+ \nabla_s \sigma )\delta   
+    \]</li>
+    <li>When single phase is modeled,</li>
+    <ul class="fragment" data-fragment-index="1"> <li> Use inter-particular forces to mimic inter-molecular forces   </li>
+      <li class="fragment highlight-blue" data-fragment-index="2">Geometrically compute the value of $\kappa$ and use in CSF</li></ul>
+  </ul>
+  </section>
+  <section>
+    <h3> Free Surface Detection </h3>
+    <div style="float:left;width:50%;">
+      <img src="images/surface_particles.png" class="imgNoBorder" width="100%">
+ </div>
+    <div style="float:right;width:50%;">
+      <ul>
+        <li> Reflect unit vector about particle $a$</li>
+        <li> Check with all neighboring $b$ if included angle is $<\pi/4$  </li>        
+        <li> At least one reflected vector has no adjacent vector, mark it as free surface</li>
+      </ul>
+      </div>
+  </section>
+  <section>
+    <h3> Local Coordinate Transform </h3>
+    <table>
+      <tr><td>
+ <img src="images/coordinate_transform_2d.png" class="imgNoBorder" width="100%">
+      </td>
+        <td>
+ <img src="images/coordinate_transform_3d.png" class="imgNoBorder" width="100%">
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Reconstructed Interface </h3>
+    <table>
+      <tr>
+        <th> 2 Dimensions</th>
+        <th> 3 Dimensions</th>
+      </tr>
+      <tr><td>
+          \[
+          P(x) = \sum_j P_j(x),
+          \]
+          where
+          \[
+          P_j(x) = y_j\prod \limits_{k\neq j} \frac{x-x_k}{x_j - x_k}.          
+          \]
+        </td>
+        <td>
+          Moving Least Squares:
+          \[ 
+          p^{T} = [1,x,y,x^2, xy,y^2].
+          \]
+          The reconstructed surface function can be given as:
+          \[
+          z^h(\vec{x}) = \sum\limits_{i=1}^{m} p_i(\vec{x})a_i(\vec{x})\\
+          \equiv p^{T}
+          (\vec{x} )\cdot a(\vec{x}),
+          \]
+          which minimizes the function
+          \[     
+          J = \sum\limits_i (z^h(\vec{x},\vec{x}_l) - z(\vec{x}_l))^2 \\
+          = (Pa - z)^T
+          (Pa-z), 
+          \]
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h3> Validation cases </h3>
+    <div style="float:left;width:50%">
+      <video width="400" height="300" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_st_2d.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <img src="images/pressure_lagrange_st.png" width="100%" class="imgNoBorder">
+    </div>
+    <div style="float:right;width:50%">
+      <video width="400" height="300" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_cube.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <video width="440" height="330" controls autoplay>
+        <source src="http://prapanchnair.github.io/media/movie_coal_p_int.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+    </div>
+  </section>
 </section>
-<section data-transition="fade">
-<h3> Effervescent Jet Atomization</h3>
-<br />
-<ul>
-<li class="fragment"> Low operating pressure</li>
-<li class="fragment"> Large nozzle diameter</li>
-<li class="fragment"> Consistent spray performance
-<ul> <li> Less pollution</li>
-<li> Increased efficiency</li>
-</ul>
-</li>
-</ul>
-</section>
 <section>
-<h3>Characterization </h3>
-<div class="box-green" data-title="Parametes">Innjection Pressures, Injector
-Configuration<small><sup>[1]</sup></small> & Gas to Liquid Ratios (GLRs) </div>
-<div style="width:60%;float:left;">
-<img class="imgNoBorder" src="img/jatropa.png"/>
-<p style="text-align:center;"><small> Jatropa Oil spray cone <sup>[2]</sup></small><p> 
-</div>
-<!-- <div style="width:35%;float:right;transform:translateY(100%)">-->
-<div style="width:40%;float:right">
-<img class="imgNoBorder" src="img/glrsmd.png"/>
-<p style="text-align:center"><small> GLR Vs Drop size <sup>[3]</sup></small><p> 
-</div>
-<div style="clear:both;float:left; width=100%" class="box-green" data-title="Features">
-<div style="width:40%;display:inline-block;">
-<ul><li>Structure </li>
-<li>Spray cone angle</li> </ul></div>
-<div style="width:40%;display:inline-block;"><ul>
-<li>Unsteadiness </li> 
-<li>Droplet sizing </li>
-</ul> </div>
-</div>
-<footer style="text-align:left">
-<small><sup>[1]</sup> Hrishikesh Gadgil and B.N. Raghunandan. "Effect of Air Injection Configuration on the
-Characteristics of Effervescent Sprays", J Prop. Pow., Vol. 27, No. 4 (2011), pp. 925-928. doi:
-10.2514/1.B34052 <br />
-<sup>[2]</sup> Gadgil, Hrishikesh P., and B. N. Raghunandan. "Some features of spray breakup in effervescent atomizers."
-Exp. Fluids 50.2 (2011): 329-338.<br />
-<sup>[3]</sup>Broniarz-Press, L. U. B. O. M. I. R. A., et al. "Effervescent atomization of glycerol aqueous solutions." Transactions of the Institute of Fluid-Flow Machinery (2013).</small>
-                         </footer>
+  <section>
+    <h2>Volume Conservation in ISPH </h2>
+    <ul>
+      <li>  Divergence-free velocity is the condition for incompressibility   </li>
+      <li>  When finite time step updates are used, conservation may not be satisfied.
+      \[ \frac{1}{\rho}\frac{d\rho}{dt} = -\nabla \cdot \mathbf{u} \]
+      </li>
+      <li class="fragment current-visible" data-fragment-index="1"> <strong> Can we achieve better volume conservation while retaining simplicity of first order time updates? </strong></li>
+    </ul>
+  </section>
+  <section >
+    <h3>Volume Loss </h3>
+    <div style="text-align:left"> 
+    For explicit Euler time step,
+    \[
+    \mathbf{r}^{n+1} =  \mathbf{r} + \Delta t \mathbf{u}_{DF}.
+    \]
+    The corresponding gradient of this deformation can be written as,       
+    \begin{align*}
+    \mathbf{F}^{n+1} &=  \mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}.
+    \end{align*}
+    \begin{align*}
+    \det(\mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}) &= 1
+    \end{align*} 
+    Using  Cayley-Hamilton theorem,
+    \[
+    \underbrace{\Delta t I_1 + \Delta t^2 I_2}_{\text{for 2D}} + \Delta t^3 I_3 = 0. 
+    \]
+    $I_1$ corresponds to zero divergence:
+    \[
+    I_1 = \text{tr}\nabla \mathbf{u}_{DF} = \nabla \cdot  \mathbf{u}_{DF} = 0, \nonumber
+    \]
+    <em>$I_2$, $I_3$ would vanish only for a vanishing $\Delta t$.</em>
+  </div>
+  </section>
 
-                         </section>
+  <section>
+    <h3> Volume loss - Demonstration </h3>
+    <div style="text-align:left">
+    At time $t =  m\Delta t$, the area ratio: 
+    \[ A(t)/A(0) = \left( 1 + \Delta t^2 I_2\right)^{m}\]
+   <table>
+     <tr>
+       <td style="text-align:center"><small>$\mathbf{u}_{2D} = -100x\hat{\mathbf{i}} + 100y\hat{\mathbf{j}}  $</small></td>
+       <td style="text-align:center"> <small>$  \mathbf{u}_{3D} = 100x\hat{\mathbf{i}} - 50y\hat{\mathbf{j}} - 50z\hat{\mathbf{k}}$ </small></td>
+     </tr>
+     <td>
+       <img src="images/vol/Fig_1a.png" class="imgNoBorder" width="400px">
+     </td>
+     <td>
+       <img src="images/vol/Fig_1b.png" class="imgNoBorder" width="400px">
+     </td>
+   </tr>
+ </table>
+    For Predictor Corrector updates:
+    \[
+    A(t)/A(0) = \left(1+ \Delta t G_1 + \Delta t^2 G_2 \right)^m,
+    \]
+    <small> $G_1$ and $G_2$: invariants of  $\nabla\mathbf{u}_{DF}^n + \Delta t (\nabla \mathbf{u}_{DF}^n)^2/2$.</small>
+    </div>
+  </section>
+  
+  <section>
+    <h3> Proposed Pressure Equation </h3>
+    <div style="text-align:left">
+      Let $\tilde{\mathbf{u}} = \Delta t \nabla p/\rho$ be the component of velocity that projects onto a divergence free field at every time step. 
+      Solve for $p$, using the condition $ \det(\mathbf{I} + \Delta t \nabla \mathbf{u}) = 1$:
+      \begin{align*}
+      1 &= \det\left((\mathbf{I} +\Delta t \nabla \mathbf{u^*} ) +\Delta t \nabla \tilde{\mathbf{u}}\right) \\
+      &= \det\left( \mathbf{A} + \frac{\Delta t^2}{\rho} \nabla (\nabla p)\right)\\   
+      &= \det\mathbf{A} +\text{cof}(\mathbf{A}):\frac{\Delta t^2}{\rho}\nabla(\nabla p) + \mathcal{O}(\Delta t^4)
+      \end{align*}
+      where, $\mathbf{A} = \mathbf{I} +\Delta t \nabla \mathbf{u}^*$
+      For a 2D domain:
+      \[
+      1-\det\mathbf{A} = \frac{\Delta t ^2}{\rho}\left( a_{22} \frac{\partial^2 p}{\partial x ^2} + a_{11}\frac{\partial^2 p }{\partial y^2} - (a_{12} + a_{21} ) \frac{\partial ^2 p}{\partial x \partial y     }\right).
+      \]
+    </div>
+  </section>
+ 
+  <section>
+    <h3> Volume Conservation - Free Surface</h3>
+    <div style="text-align:center">
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2a.jpeg" width="250px" class="imgNoBorder">
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2b.jpeg" width="250px" class="imgNoBorder">
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_2c.jpeg" width="250px" class="imgNoBorder">
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_3a.png" width="400px" class="imgNoBorder"><br>
+        <small> 2D elliptical droplet </small>
+      </div>
+      <div style="display:inline-block">
+        <img src="images/vol/Fig_3b.png" width="400px" class="imgNoBorder"><br>
+        <small> 3D prolate droplet </small>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h3> Volume Conservation - Internal Flows </h3>
+    <table>
+      <tr>
+        <td valign="middle" style="vertical-align:middle">
+          <img src="images/vol/Fig_4a.png" width="700px" class="imgNoBorder">
+        </td><td valign="middle" style="vertical-align:middle"> $ Re =400$ </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:middle">
+          <img src="images/vol/Fig_4b.png" width="700px" class="imgNoBorder">
+        </td><td style="vertical-align:middle"> $ Re =1000$ </td>
+      </tr>
+      </table>
+  </section>
+  <section>
+    <h3> Volume Conservation - Internal Flows </h3>
+    <table> 
+      <tr>
+        <td><img src="images/vol/Fig_5a.png" class="imgNoBorder" width="200px"></td>
+        <td><img src="images/vol/Fig_5b.png" class="imgNoBorder" width="200px"></td>
+        <td><img src="images/vol/Fig_6a.png" class="imgNoBorder" width="200px"></td>
+        <td><img src="images/vol/Fig_6b.png" class="imgNoBorder" width="200px"></td>
+      </tr>  
+      <tr>
+        <td colspan="2" style="text-align:center"><small> Re 400 (2500 particles)</small> </td>
+        <td colspan="2" style="text-align:center"><small>Re 1000 (2500 particles)</small> </td>
+      </tr>  
+      <tr>  
+        <td colspan="2"><img src="images/vol/Fig_7.png" class="imgNoBorder" width="400px"></td>
+        <td colspan="2"><img src="images/vol/Fig_9.png" class="imgNoBorder" width="400px"></td>
+      </tr>  
+      <tr>
+        <td colspan="2" style="text-align:center"><small>RMS of the relative density errors - Wendland kernel</small> </td>
+        <td colspan="2" style="text-align:center"><small>RMS of the relative density errors - Spline (M5) kernel</small> </td>
+      </tr>  
+    </table>
+  
+  </section>
+  <section>
+    <h3> Volume Conservation - Internal Flows </h3>
+    <table> 
+      <tr>
+        <td><img src="images/vol/Fig_8.png" class="imgNoBorder" width="600px"></td>
+        <td style="vertical-align:middle"> Wendland Kernel</td>
+      </tr>  
+      <tr>
+        <td><img src="images/vol/Fig_10.png" class="imgNoBorder" width="600px"></td>
+        <td style="vertical-align:middle"> Spline Kernel</td>
+      </tr>  
+    </table> 
+  </section>
+
+
+
 </section>
-
-
-<section>
- <video width="944" height="704" controls>
-  <source src="./img/movies/dam.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video> 
-</section>
-
-
-
-
-
-
-
 
 
 
@@ -714,7 +841,7 @@ Your browser does not support the video tag.
 			    },
         multiplex: {
         // Example values. To generate your own, see the socket.io server instructions.
-        secret: null, // Obtained from the socket.io server. Gives this (the master) control of the presentation
+        secret: null,// '14458580502417865033', // Obtained from the socket.io server. Gives this (the master) control of the presentation
         id: '22172944e37abdbb', // Obtained from socket.io server
         url: 'revealjs-51546.onmodulus.net:80' // Location of socket.io serveri
           },
