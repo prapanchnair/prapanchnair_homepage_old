@@ -76,28 +76,39 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <section>
-        <h2>About Me</h2>
-        <hr>
-        <h3>Previously</h3>
+        <h1>About Me</h1>
+      </section>
+      <section>
         <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
           <li> RA at University of Alabama, USA - Turbulence transition models</li>
           <li> RWDI - Wind Engineering simulations </li>
           <li> ISRO - Flight Mechanics Division </li>
           <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
+         <li> Research Associate - IISc</li>
         </ul>
       </section>
       <section>
-        <h3>Current</h3>
-        <ul> <li> Research Associate - IISc</li>
-          <li> Developing a FVM with subgrid thin film model</li>
+        <h2> Multiphase Flow Simulations Lab, IISc </h2>
+        <ul> 
+          <li>Electrohydrodynamics</li>
+          <li>Viscoelasticity</li>
+          <li>Porous Media </li>
+          <li> Large scale atomization-Jet in cross flow</li>
+          <strong>
+        <li> Developing a FVM with subgrid thin film model</li>
           <li> Water Entry problems using SPH</li>
+        </strong>
         </ul>
       </section>
+
     </section>
 
     <section>
       <section>
-        <h2> Motivation </h2>
+        <h1> SPH: Motivation <h2>
+      </section>
+      <section>
+        <h2> Requirement </h2>
         <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
         <ul><li> Lesser preprocessing </li>
           <li> Account for greater geometric complexity  </li>
@@ -119,14 +130,17 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <section>
-        <h2> SPH - Introduction </h2>
+        <h1> SPH: Introduction and Code Development</h1>
+      </section>
+      <section>
+        <h2> Ideas </h2>
         <ul>
           <li>Continuum domain is discretized into constant mass particles
           <li>Particles act as interpolation points as well
           <li>Not tracer particles - SPH is Lagrangian
           <li>Conceived as moving clumps/distribution of material
           <li>Characterized by field variables (dynamic and kinematic)
-          <li>Associated kernel function with a support radius
+          <li>Associated kernel function (like shape functions in FEM) with a support radius
         </ul>
       </section>
       <section>
@@ -195,10 +209,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           \]
         </div>
       </section>
-    </section>
-    <section>
       <section>
-        <h2>Governing Equation</h2>
+        <h2>Governing Equations</h2>
         <div class="box-green" data-title="Continuity">
         $$
         \frac{1}{\rho}\frac{d \rho}{dt} + \nabla \cdot \mathbf{u} = 0,
@@ -648,8 +660,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     </div>
   </section>
-</section>
-<section>
   <section>
     <h2>Volume Conservation in ISPH </h2>
     <ul>
@@ -798,7 +808,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <table> 
       <tr>
         <td><img src="images/vol/Fig_8.png" class="imgNoBorder" width="600px"></td>
-        <td style="vertical-align:middle"> Wendland Kernel</td>
+        <td style="vertical-align:middle"> Wendland Kernel <br> Acts as a better filter-fourier transform</td>
       </tr>  
       <tr>
         <td><img src="images/vol/Fig_10.png" class="imgNoBorder" width="600px"></td>
@@ -869,6 +879,65 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <div style="text-align:center">
       <img src="images/truscott_2d.jpg" class="imgNoBorder" width="800px">
     </div>
+  </section>
+  <section>
+    <h2> KE studies (Aspect Ratio) </h2>
+
+
+
+  </section>
+  <section>
+    <h2> KE studies (Aspect Ratio) </h2>
+
+
+
+  </section>
+  <section>
+    <h2> KE studies (Spin)</h2>
+
+
+
+  </section>
+  <section>
+    <h2> KE studies (Spin)</h2>
+
+
+
+  </section>
+  <section>
+    <h2> Elasticity</h2>
+
+
+
+  </section>
+  <section>
+    <h2> Compressible Incompressible interfaces</h2>
+    <ul>
+      <li>Density: Constant in incompressible fluid and pressure/temperature dependent in the compressible fluid </li>
+      <li> In Incompressible regions - modeling divergence constraint is a challenge near interfaces.</li>
+      <li> The termination of pressure wave from  compressible phase at the interface.</li>
+  </section>
+  <section>
+    <h2> Rayleigh Plesset Equation</h2>
+    \begin{align*}
+    \left\{ \left( \frac{P_B -P_\infty}{\rho_L} - \frac{2*S}{\rho_L R}-   
+    \left(\frac{R^4}{R_\infty ^4} -1
+    \right)\frac{\dot{R}^2}{2}\right)\frac{R_\infty}{R_\infty - R}            
+    - 2 \dot{R}^2 \right\}\frac{1}{R}  &= \ddot{R}
+    \end{align*}
+    <strong> 2D case</strong>
+    \begin{align*}
+    \left\{  \frac{P_B -P_\infty}{\rho_L} - \frac{S}{\rho_L R}-  
+    \left(\frac{R^2}{R_\infty ^2}  -1
+    \right)\frac{\dot{R}^2}{2}  - 
+    \dot{R}^2\ln \frac{R_\infty}{R}
+    \right\}\frac{1}{R\ln \frac{R_\infty}{R}}  &= \ddot{R}
+    \end{align*}
+    <strong> 1D case</strong>
+    \begin{align*}
+    \left( \frac{P_B -P_\infty}{\rho_L}\right)\frac{1}{R_\infty-R} &= \ddot{R}
+    \end{align*}
+
   </section>
 
 </section>
