@@ -73,7 +73,20 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
       </footer>
     </section>
-
+    <section>
+      <h2> Roadmap </h2>
+      <ul>
+        <li>About me </li>
+        <li>Motivation and scope</li>
+        <li>ISPH-Introduction and development </li>
+        <li>Improvements to the algorithm</li>
+        <li>Simulations and Results</li>
+        <li>Current problems and future work</li>
+      </ul>
+        <aside class="notes">
+          blah blah
+          </aside>
+    </section>
     <section>
       <section>
         <h1>About Me</h1>
@@ -95,6 +108,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <li>Porous Media </li>
           <li> Large scale atomization-Jet in cross flow</li>
           <strong>
+        <li> ISPH code development</li>
         <li> Developing a FVM with subgrid thin film model</li>
           <li> Water Entry problems using SPH</li>
         </strong>
@@ -105,8 +119,11 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <section>
-        <h1> SPH: Motivation <h2>
-      </section>
+      <h1> Motivation and Scope </h1>
+      <aside class="notes">
+        hello world 
+      </aside>
+    </section>
       <section>
         <h2> Requirement </h2>
         <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
@@ -124,6 +141,13 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <li> Less sensitive initial particle distribution  </li>
           <li> Higher order shape functions </li>
           <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
+        </ul>
+      </section>
+      <section>
+        <h2> Scope of current work </h2>
+        <ul><li> Incompressible flows - modeled by continuity equation (ISPH)</li>
+          <li> Free surfaces imply that only one phase is simulated </li>
+          <li> Improvements proposed focus on removing heuristics</li>
         </ul>
       </section>
     </section>
@@ -262,7 +286,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         </div>
       </section>
       <section>
-        <div style="font-size:70%;">
+        <table><tr>
+      <td>
+        <div style="font-size:60%;">
           <h3>Algorithm</h3>
           While $t \leq \text{ end time}$:<br> 
           <ul>
@@ -272,10 +298,15 @@ if( window.location.search.match( /print-pdf/gi ) ) {
             <li class="fragment highlight-current-blue" data-fragment-index=4>$\mathbf{r}^{n+1} \gets \mathbf{r}^{n} + \Delta t \mathbf{u}^{n+1}$;</li>
             <li class="fragment highlight-current-blue" data-fragment-index=5>$t \gets t+\Delta t$;  $n\gets n+1$; </li>
           </ul>   
-        </div>
-        <div style="font-size:70%;">
-          <div class ="box-green" data-title="Approximation" style="height:120px">
-            <div class="fragment current-visible" data-fragment-index=1>
+        </div></td>
+        <td style="vertical-align:middle"><div style=" width:300px;font-size:60%" class="fragment" data-fragment-index=5>
+            <strong>          Kinetic Energy and
+              Angular Momentum conservation ?</strong>
+      </div></td>
+  </tr></table>
+        <div style="font-size:60%;">
+          <div class ="box-green" data-title="Approximation" >
+            <div class="fragment " data-fragment-index=1>
               Viscous:
                 \[
                 \nabla \cdot \left(\frac{\mu \mathbf{D}}{\rho} \right)_a
@@ -283,14 +314,14 @@ if( window.location.search.match( /print-pdf/gi ) ) {
                 +\rho_b}\frac{\mathbf{u}_{ab} \cdot \mathbf{r}_{ab}}{r_{ab}^{2}+\eta^2}
                 \nabla_a W(\mathbf{r}_{ab},h) \] 
             </div>
-            <div class="fragment current-visible" data-fragment-index=2 style="top:-115px;position:relative">
+            <div class="fragment " data-fragment-index=2 >
               Laplacian:<br>
 
               \[ \nabla \cdot \left( \frac{\nabla p}{\rho}\right)_a =\sum_{b}
               \frac{m_b}{\rho_b}\frac{4}{\rho_a     +\rho_b}\left(p_a - p_b\right)     
               F_{ab}. \]
             </div>
-            <div class="fragment current-visible" data-fragment-index=3 style="top:-225px;position:relative">
+            <div class="fragment " data-fragment-index=3 >
               Gradient of pressure:
 
               \[ \left(\frac{\nabla p}{\rho }\right)_{a} =
@@ -355,7 +386,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <img src="images/coo_format.png" class="imgNoBorder" alt="data" width="700px">
         </figure> 
         <div style="text-align:justify">
-        <ul >  
+        <ul > 
+          <li> Cache misses during the Mat-Vec operation</li>
           <li>BiCGSTAB Solver - external library (LIS)</li>
       </ul> </div>
       </section>
@@ -919,6 +951,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h2> Rayleigh Plesset Equation</h2>
+    <img src="images/raypless.png" class="imgNoBorder" width=300 >
+    <img src="images/raypless-1D.png" class="imgNoBorder" width=300 >
+    <small>
     \begin{align*}
     \left\{ \left( \frac{P_B -P_\infty}{\rho_L} - \frac{2*S}{\rho_L R}-   
     \left(\frac{R^4}{R_\infty ^4} -1
@@ -937,11 +972,82 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     \begin{align*}
     \left( \frac{P_B -P_\infty}{\rho_L}\right)\frac{1}{R_\infty-R} &= \ddot{R}
     \end{align*}
-
+    </small>
   </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 10:1
+     <table>
+       <tr>
+         <td><img src="images/rp/rp_rect_dr10.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr10.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 100:1
+     <table>
+       <tr>
+         <td><img src="images/rp/rp_rect_dr100.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr100.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 1000:1
+     <table>
+       <tr>
+         <td><img src="images/rp/rp_rect_dr1000.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr1000.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 1000:1
+  
+      <video width="400" height="300" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_rect.ogv" type="video/ogv">
+        Your browser does not support the video tag.
+      </video>
+   
+   </section>
 
 </section>
+<section>
+  <section>
 
+  <h1> Current and future work</h1>
+</section>
+<section>
+  <h2> Better water entry problems </h2>
+
+        <img src="images/threephase.svg" width="500" class="imgNoBorder" />
+</section>
+<section>
+  <h2> VoF method with subgrid molecular forces model </h2>
+
+  <img src="images/multiscale.png" width="400" class="imgNoBorder" /> <br>
+        <img src="images/vanderwaals.png" style="top:-50px" width="600" class="imgNoBorder" />
+</section>
+
+<section>
+  <ul>
+    <li>Experience with developing particle based simulation code and algorithm</li>
+    <li>Particle based simulation methods </li>
+    <li>Complex physics</li>
+    <li>Multiscale studies</li>
+    <li>HPC aspects </li>
+  </ul>
+  <h2> Thank You </h2>
+</section>
+  </section>
 
 
 			</div>
