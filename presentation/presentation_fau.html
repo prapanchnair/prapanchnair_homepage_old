@@ -914,14 +914,43 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h2> KE studies (Aspect Ratio) </h2>
-
-
+    <table>
+      <tr>
+        <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar0-5.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+    <tr>
+      <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar0-8.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar1-2.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar1-5.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+  </table>
 
   </section>
   <section>
     <h2> KE studies (Aspect Ratio) </h2>
 
-
+    <img src="images/truscott/ar_ke.png" class="imgNoBorder" width=500 > <br>
+    <table style="margin:0px auto; width:700px">
+      <tr>
+        <td>
+          <img src="images/truscott/ar_pressure.png" class="imgNoBorder" width=350 ></td>
+        <td><img src="images/truscott/ar_position.png" class="imgNoBorder" width=350 ></td>
+      </tr>
+    </table>
 
   </section>
   <section>
@@ -938,19 +967,45 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h2> Elasticity</h2>
-
-
-
+    <ul><li>SPH is widely used in Elastic dynamic problems involving impact,
+      fracture and plasticity. </li>  
+      <li> Tensile instability.            </li>                                      
+      <li>Corrections/fixes to this instability over-damps.</li>
+      <li>The code uses elasticity models available in literature with Weakly   
+      compressible and Incompressible material models.</li>
+    </ul>
+    <div class="box-green" data-title="Constitutive Equations">
+      <small>
+        Assuming Hooke's law with shear modulus $\mu$, the rate of change of $S^{ij}$ is given by: <br>
+    \begin{equation*}                                                               
+    \frac{DS^{ij}}{Dt}= 2\mu\left(\dot{\epsilon}^{ij}                             
+    -\frac{1}{3}\delta^{ij}\dot{\epsilon}^{ij}\right)+S^{ik}\Omega^{jk} +           
+    \Omega^{ik}S^{kj}                                                               
+    \end{equation*}                                                                 
+    \begin{equation*}                                                              
+    \dot{\epsilon}^{ij}  = \frac{1}{2}\left( \frac{\partial v^i}{\partial x^j} +    
+    \frac{\partial v^j}{\partial x^i}\right) \quad \text{and} \quad \Omega^{ij} =   
+    \frac{1}{2}\left( \frac{\partial v^i}{\partial x^j} - \frac{\partial            
+    v^j}{\partial x^i}  \right)                                                     
+    \end{equation*}                                                                 
+    \begin{equation*}                                                              
+    \frac{Dv^i_a}{Dt}= \sum_b m_b\left(  \frac{\sigma_a^{ij}}{\rho_a^2} +          
+    \frac{\sigma_b^{ij}}{\rho_b^2}  + R_{ab}^{ij}f^n \right)\frac{\partial         
+    W_{ab}}{\partial x_a^j} +g^i                                                   
+    \end{equation*}                                                                
+    \begin{equation*}                                                              
+    \bar{R}_a^{xx} = -\epsilon \frac{\bar{\sigma}_a^{xx}}{\rho^2} \quad \text{when}
+    \quad \bar{\sigma}_a^{xx}>0                                                    
+    \end{equation*}                                                                
+  </small>
+</div>
   </section>
   <section>
     <h2> Colliding Rings</h2>
-Shear Stress
-      <video width="600" height="500" controls autoplay loop>
+      <video width="700" height="600" controls autoplay loop>
         <source src="http://prapanchnair.github.io/media/movie_rings.ogv" type="video/ogg">
         Your browser does not support the video tag.
       </video>
-
-
   </section>
   <section>
     <h2> Compressible Incompressible interfaces</h2>
@@ -964,6 +1019,7 @@ Shear Stress
     <img src="images/raypless.png" class="imgNoBorder" width=300 >
     <img src="images/raypless-1D.png" class="imgNoBorder" width=300 >
     <small>
+      <br>
     \begin{align*}
     \left\{ \left( \frac{P_B -P_\infty}{\rho_L} - \frac{2*S}{\rho_L R}-   
     \left(\frac{R^4}{R_\infty ^4} -1
@@ -988,7 +1044,7 @@ Shear Stress
     <h2> 1D results </h2>
     $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
      Density Ratio (Incompressible : Compressible) is 10:1
-     <table>
+     <table style="margin:0px auto; width:800px" >
        <tr>
          <td><img src="images/rp/rp_rect_dr10.png" width=500 class="imgNoBorder"></td>
          <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr10.png" width=300 class="imgNoBorder"></td>
@@ -999,7 +1055,7 @@ Shear Stress
     <h2> 1D results </h2>
     $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
      Density Ratio (Incompressible : Compressible) is 100:1
-     <table>
+     <table style="margin:0px auto; width:800px" >
        <tr>
          <td><img src="images/rp/rp_rect_dr100.png" width=500 class="imgNoBorder"></td>
          <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr100.png" width=300 class="imgNoBorder"></td>
@@ -1010,7 +1066,7 @@ Shear Stress
     <h2> 1D results </h2>
     $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
      Density Ratio (Incompressible : Compressible) is 1000:1
-     <table>
+     <table style="margin:0px auto; width:800px" >
        <tr>
          <td><img src="images/rp/rp_rect_dr1000.png" width=500 class="imgNoBorder"></td>
          <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr1000.png" width=300 class="imgNoBorder"></td>
@@ -1030,7 +1086,7 @@ Shear Stress
     </section>
     <section>
       <h2> 2D results </h2>
-      <table>
+      <table style="margin:0px auto; width:800px" >
         <tr>
           <td>  $$ P_\infty (t) = 20+1.0\sin \left( \frac{2\pi t}{30}\right) $$ <br>
             Density ratio 10:1 <br>
@@ -1043,7 +1099,7 @@ Shear Stress
           </td>
         </tr>
       </table>
-      <table>
+      <table style="margin:0px auto; width:800px" >
         <tr>
           <td><img src="images/rp/rp_circ_dr10.png" width=500 class="imgNoBorder"></td>
           <td style="vertical-align:middle"><img src="images/rp/rp_circ_freq_dr10.png" width=300 class="imgNoBorder"></td>
