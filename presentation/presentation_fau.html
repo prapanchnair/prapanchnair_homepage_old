@@ -356,7 +356,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     </section>
     <section>
       <section>
-        <h1> Computer Implementation</h1>
+        <h1> Code Development</h1>
       </section>
       <section>
         <h2> Database </h2>
@@ -380,7 +380,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2> Linear Solver </h2>
         <div style="text-align:justify">
         <ul >
-          <li> Solving on a irregular domain of particles</li>
+          
           <li> COO-data structure (also used in unstructured meshes)</li> </ul> </div>
         <figure>
           <img src="images/coo_format.png" class="imgNoBorder" alt="data" width="700px">
@@ -391,6 +391,17 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <li>BiCGSTAB Solver - external library (LIS)</li>
       </ul> </div>
       </section>
+      <section>
+        <h2>Features</h2>
+        <ul>
+          <li>C, OpenMP, a naive MPI version</li>
+          <li>OpenCL version for WCSPH</li>
+          <li>HDF5 compression</li>
+          <li>LIS library for linear system </li>
+          <li>Git-version control</li>          
+        </ul>
+      </section>
+
     </section>
 
     <section>
@@ -995,8 +1006,36 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <td style="text-align:center"> KE of fluid</td>
       </tr>
     </table>
-
-
+  </section>
+  <section>
+    <h2> Water entry of sphere </h2>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td> <img src="images/sphere/we_0.jpg" class="imgNoBorder" width=250 ></td>
+        <td> <img src="images/sphere/we_80.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_500.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+      <tr>
+        <td> <img src="images/sphere/we_760.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_941.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_1080.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align:center"> <img src="images/sphere/we_1380.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2> Water entry of sphere </h2>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td> <img src="images/sphere/sphere_pressure.png" class="imgNoBorder" width=400 ></td>
+        <td> <img src="images/sphere/sphere_vel.png" class="imgNoBorder" width=400></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center"> <img src="images/sphere/sphere_acceleration.png" class="imgNoBorder" width=400></td>
+      </tr>
+    </table>
   </section>
   <section>
     <h2> Elasticity</h2>
@@ -1146,7 +1185,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       <h1> Current and future work</h1>
     </section>
     <section>
-      <h2> Better water entry problems </h2>
+      <h2> Better water entry simulations </h2>
 
       <img src="images/threephase.svg" width="500" class="imgNoBorder" />
     </section>
@@ -1167,6 +1206,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         </ul>
         <h2> Thank You </h2>
       </section>
+    </section>
+    <section>
+      <h2> Appendix: Wendland Kernel</h2>
+      <img src="images/fourier_kernels.png" class="imgNoBorder" width=700">
     </section>
 
 
@@ -1190,7 +1233,11 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         zoomKey: 'shift',
 				theme: 'simple',//Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: 'fade',//Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
+        leap: {
+              naturalSwipe   : false,    // Invert swipe gestures
+              pointerOpacity : 0.5,      // Set pointer opacity to 0.5
+              pointerColor   : '#d80000' // Red pointer
+          },
 				math: {
               mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js', 
 //			        mathjax: 'js/MathJax-2.4-latest/MathJax.js', 
@@ -1217,7 +1264,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js' , async: true },
           { src: 'plugin/multiplex/master.js', async: true },
-					{ src: 'plugin/math/math.js', async: true }
+					{ src: 'plugin/math/math.js', async: true },
+					{ src: 'plugin/leap/leap.js', async: true }
 				]
 			});
 

@@ -73,31 +73,59 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <img src="images/logo_iisc.svg" width="200" class="imgNoBorder" />
       </footer>
     </section>
-
+    <section>
+      <h2> Roadmap </h2>
+      <ul>
+        <li>About me </li>
+        <li>Motivation and scope</li>
+        <li>ISPH-Introduction and development </li>
+        <li>Improvements to the algorithm</li>
+        <li>Simulations and Results</li>
+        <li>Current problems and future work</li>
+      </ul>
+        <aside class="notes">
+          blah blah
+          </aside>
+    </section>
     <section>
       <section>
-        <h2>About Me</h2>
-        <hr>
-        <h3>Previously</h3>
+        <h1>About Me</h1>
+      </section>
+      <section>
         <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
           <li> RA at University of Alabama, USA - Turbulence transition models</li>
           <li> RWDI - Wind Engineering simulations </li>
           <li> ISRO - Flight Mechanics Division </li>
           <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
+         <li> Research Associate - IISc</li>
         </ul>
       </section>
       <section>
-        <h3>Current</h3>
-        <ul> <li> Research Associate - IISc</li>
-          <li> Developing a FVM with subgrid thin film model</li>
+        <h2> Multiphase Flow Simulations Lab, IISc </h2>
+        <ul> 
+          <li>Electrohydrodynamics</li>
+          <li>Viscoelasticity</li>
+          <li>Porous Media </li>
+          <li> Large scale atomization-Jet in cross flow</li>
+          <strong>
+        <li> ISPH code development</li>
+        <li> Developing a FVM with subgrid thin film model</li>
           <li> Water Entry problems using SPH</li>
+        </strong>
         </ul>
       </section>
+
     </section>
 
     <section>
       <section>
-        <h2> Motivation </h2>
+      <h1> Motivation and Scope </h1>
+      <aside class="notes">
+        hello world 
+      </aside>
+    </section>
+      <section>
+        <h2> Requirement </h2>
         <em>There is a need for reduced complexity to solve multi-physics problems.</em><br/>         
         <ul><li> Lesser preprocessing </li>
           <li> Account for greater geometric complexity  </li>
@@ -115,18 +143,28 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
         </ul>
       </section>
+      <section>
+        <h2> Scope of current work </h2>
+        <ul><li> Incompressible flows - modeled by continuity equation (ISPH)</li>
+          <li> Free surfaces imply that only one phase is simulated </li>
+          <li> Improvements proposed focus on removing heuristics</li>
+        </ul>
+      </section>
     </section>
 
     <section>
       <section>
-        <h2> SPH - Introduction </h2>
+        <h1> SPH: Introduction and Code Development</h1>
+      </section>
+      <section>
+        <h2> Ideas </h2>
         <ul>
           <li>Continuum domain is discretized into constant mass particles
           <li>Particles act as interpolation points as well
           <li>Not tracer particles - SPH is Lagrangian
           <li>Conceived as moving clumps/distribution of material
           <li>Characterized by field variables (dynamic and kinematic)
-          <li>Associated kernel function with a support radius
+          <li>Associated kernel function (like shape functions in FEM) with a support radius
         </ul>
       </section>
       <section>
@@ -195,10 +233,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           \]
         </div>
       </section>
-    </section>
-    <section>
       <section>
-        <h2>Governing Equation</h2>
+        <h2>Governing Equations</h2>
         <div class="box-green" data-title="Continuity">
         $$
         \frac{1}{\rho}\frac{d \rho}{dt} + \nabla \cdot \mathbf{u} = 0,
@@ -250,7 +286,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         </div>
       </section>
       <section>
-        <div style="font-size:70%;">
+        <table><tr>
+      <td>
+        <div style="font-size:60%;">
           <h3>Algorithm</h3>
           While $t \leq \text{ end time}$:<br> 
           <ul>
@@ -260,10 +298,15 @@ if( window.location.search.match( /print-pdf/gi ) ) {
             <li class="fragment highlight-current-blue" data-fragment-index=4>$\mathbf{r}^{n+1} \gets \mathbf{r}^{n} + \Delta t \mathbf{u}^{n+1}$;</li>
             <li class="fragment highlight-current-blue" data-fragment-index=5>$t \gets t+\Delta t$;  $n\gets n+1$; </li>
           </ul>   
-        </div>
-        <div style="font-size:70%;">
-          <div class ="box-green" data-title="Approximation" style="height:120px">
-            <div class="fragment current-visible" data-fragment-index=1>
+        </div></td>
+        <td style="vertical-align:middle"><div style=" width:300px;font-size:60%" class="fragment" data-fragment-index=5>
+            <strong>          Kinetic Energy and
+              Angular Momentum conservation ?</strong>
+      </div></td>
+  </tr></table>
+        <div style="font-size:60%;">
+          <div class ="box-green" data-title="Approximation" >
+            <div class="fragment " data-fragment-index=1>
               Viscous:
                 \[
                 \nabla \cdot \left(\frac{\mu \mathbf{D}}{\rho} \right)_a
@@ -271,14 +314,14 @@ if( window.location.search.match( /print-pdf/gi ) ) {
                 +\rho_b}\frac{\mathbf{u}_{ab} \cdot \mathbf{r}_{ab}}{r_{ab}^{2}+\eta^2}
                 \nabla_a W(\mathbf{r}_{ab},h) \] 
             </div>
-            <div class="fragment current-visible" data-fragment-index=2 style="top:-115px;position:relative">
+            <div class="fragment " data-fragment-index=2 >
               Laplacian:<br>
 
               \[ \nabla \cdot \left( \frac{\nabla p}{\rho}\right)_a =\sum_{b}
               \frac{m_b}{\rho_b}\frac{4}{\rho_a     +\rho_b}\left(p_a - p_b\right)     
               F_{ab}. \]
             </div>
-            <div class="fragment current-visible" data-fragment-index=3 style="top:-225px;position:relative">
+            <div class="fragment " data-fragment-index=3 >
               Gradient of pressure:
 
               \[ \left(\frac{\nabla p}{\rho }\right)_{a} =
@@ -313,7 +356,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     </section>
     <section>
       <section>
-        <h1> Computer Implementation</h1>
+        <h1> Code Development</h1>
       </section>
       <section>
         <h2> Database </h2>
@@ -337,16 +380,28 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2> Linear Solver </h2>
         <div style="text-align:justify">
         <ul >
-          <li> Solving on a irregular domain of particles</li>
+          
           <li> COO-data structure (also used in unstructured meshes)</li> </ul> </div>
         <figure>
           <img src="images/coo_format.png" class="imgNoBorder" alt="data" width="700px">
         </figure> 
         <div style="text-align:justify">
-        <ul >  
+        <ul > 
+          <li> Cache misses during the Mat-Vec operation</li>
           <li>BiCGSTAB Solver - external library (LIS)</li>
       </ul> </div>
       </section>
+      <section>
+        <h2>Features</h2>
+        <ul>
+          <li>C, OpenMP, a naive MPI version</li>
+          <li>OpenCL version for WCSPH</li>
+          <li>HDF5 compression</li>
+          <li>LIS library for linear system </li>
+          <li>Git-version control</li>          
+        </ul>
+      </section>
+
     </section>
 
     <section>
@@ -648,8 +703,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     </div>
   </section>
-</section>
-<section>
   <section>
     <h2>Volume Conservation in ISPH </h2>
     <ul>
@@ -798,7 +851,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <table> 
       <tr>
         <td><img src="images/vol/Fig_8.png" class="imgNoBorder" width="600px"></td>
-        <td style="vertical-align:middle"> Wendland Kernel</td>
+        <td style="vertical-align:middle"> Wendland Kernel <br> Acts as a better filter-fourier transform</td>
       </tr>  
       <tr>
         <td><img src="images/vol/Fig_10.png" class="imgNoBorder" width="600px"></td>
@@ -806,16 +859,363 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       </tr>  
     </table> 
   </section>
-
-
-
 </section>
+<section>
+  <section>
+    <h1> Simulations and Results</h1>
+  </section>
+  <section>
+    <h2> Water Entry problems </h2>
+    <div style="text-align:center">
+      <table width="810px">
+        <tr>
+          <td><img src="images/greenhow/t305.png" class="imgNoBorder" width="400px"></td>
+          <td><img src="images/greenhow/t315.png" class="imgNoBorder" width="400px"></td>
+        </tr>
+        <tr>
+          <td><img src="images/greenhow/t330.png" class="imgNoBorder" width="400px"></td>
+          <td><img src="images/greenhow/t340.png" class="imgNoBorder" width="400px"></td>
+        </tr>
+        <tr>
+          <td><img src="images/greenhow/t500.png" class="imgNoBorder" width="400px"></td>
+          <td><img src="images/greenhow/t560.png" class="imgNoBorder" width="400px"></td>
+        </tr>
+        <tr>
+          <td><img src="images/greenhow/t600.png" class="imgNoBorder" width="400px"></td>
+          <td><img src="images/greenhow/t690.png" class="imgNoBorder" width="400px"></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2> Greenhow & Lin - Experiments </h2>
+    <table>
+      <tr>
+        <td><img src="images/greenhow/penetration.png" class="imgNoBorder" width="500px"></td>
+        <td style="verticla-align:middle"><img src="images/greenhow/fymacro.png" class="imgNoBorder" width="300px"></td>
+      </tr>
+    </table> 
+  </section>
+  <section>
+    <h2> Water Exit </h2>
+    <table width="810px">
+      <tr>
+        <td><img src="images/greenhow/ce1.png" class="imgNoBorder" width="400px"></td>
+        <td><img src="images/greenhow/ce2.png" class="imgNoBorder" width="400px"></td>
+      </tr>
+      <tr>
+        <td><img src="images/greenhow/ce3.png" class="imgNoBorder" width="400px"></td>
+        <td><img src="images/greenhow/ce4.png" class="imgNoBorder" width="400px"></td>
+      </tr>
+      <tr>
+        <td><img src="images/greenhow/ce5.png" class="imgNoBorder" width="400px"></td>
+        <td><img src="images/greenhow/ce6.png" class="imgNoBorder" width="400px"></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center"><img src="images/greenhow/penetration_ce.png" class="imgNoBorder" width="400px"></td>
+      </tr>
+    </table>
+
+  </section>
+  <section>
+    <h3> Water entry - <em>Aristoff et al., 2010</em></h3>
+    <div style="text-align:center">
+      <img src="images/truscott_2d.jpg" class="imgNoBorder" width="800px">
+    </div>
+  </section>
+  <section>
+    <h2> KE studies (Aspect Ratio) </h2>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar0-5.ogv" type="video/ogg"> Your browser does not support the video tag. </video></td>
+      <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar0-8.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+    <tr>
+      <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar1-2.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+      <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_ar1-5.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+  </table>
+
+  </section>
+  <section>
+    <h2> KE studies (Aspect Ratio) </h2>
+
+    <img src="images/truscott/ar_ke.png" class="imgNoBorder" width=500 > <br>
+    <table style="margin:0px auto; width:700px">
+      <tr>
+        <td>
+          <img src="images/truscott/ar_pressure.png" class="imgNoBorder" width=350 ></td>
+        <td><img src="images/truscott/ar_position.png" class="imgNoBorder" width=350 ></td>
+      </tr>
+    </table>
+
+  </section>
+  <section>
+    <h2> KE studies (Spin)</h2>
+
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_spin_nil.ogv" type="video/ogg"> Your browser does not support the video tag. </video></td>
+      <td>
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_spin_157.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:center" >
+      <video width="400" height="400" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_spin_200.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video></td>
+    </tr>
+  </table>
 
 
+  </section>
+  <section>
+    <h2> KE studies (Spin)</h2>
 
-			</div>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td>
+    <img src="images/truscott/spin_pressure.png" class="imgNoBorder" width=270 > </td>
+  <td>
+          <img src="images/truscott/spin_energy.png" class="imgNoBorder" width=270 ></td>
+        <td><img src="images/truscott/spin_energy_fluid.png" class="imgNoBorder" width=270 ></td>
+      </tr>
+      <tr>
+        <td style="text-align:center"> Pressure</td>
+        <td style="text-align:center"> KE of solid</td>
+        <td style="text-align:center"> KE of fluid</td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2> Water entry of sphere </h2>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td> <img src="images/sphere/we_0.jpg" class="imgNoBorder" width=250 ></td>
+        <td> <img src="images/sphere/we_80.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_500.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+      <tr>
+        <td> <img src="images/sphere/we_760.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_941.jpg" class="imgNoBorder" width=250></td>
+        <td> <img src="images/sphere/we_1080.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align:center"> <img src="images/sphere/we_1380.jpg" class="imgNoBorder" width=250></td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2> Water entry of sphere </h2>
+    <table style="margin:0px auto; width:800px">
+      <tr>
+        <td> <img src="images/sphere/sphere_pressure.png" class="imgNoBorder" width=400 ></td>
+        <td> <img src="images/sphere/sphere_vel.png" class="imgNoBorder" width=400></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center"> <img src="images/sphere/sphere_acceleration.png" class="imgNoBorder" width=400></td>
+      </tr>
+    </table>
+  </section>
+  <section>
+    <h2> Elasticity</h2>
+    <ul><li>SPH is widely used in Elastic dynamic problems involving impact,
+      fracture and plasticity. </li>  
+      <li> Tensile instability.            </li>                                      
+      <li>Corrections/fixes to this instability over-damps.</li>
+      <li>The code uses elasticity models available in literature with Weakly   
+      compressible and Incompressible material models.</li>
+    </ul>
+    <div class="box-green" data-title="Constitutive Equations">
+      <small>
+        Assuming Hooke's law with shear modulus $\mu$, the rate of change of $S^{ij}$ is given by: <br>
+    \begin{equation*}                                                               
+    \frac{DS^{ij}}{Dt}= 2\mu\left(\dot{\epsilon}^{ij}                             
+    -\frac{1}{3}\delta^{ij}\dot{\epsilon}^{ij}\right)+S^{ik}\Omega^{jk} +           
+    \Omega^{ik}S^{kj}                                                               
+    \end{equation*}                                                                 
+    \begin{equation*}                                                              
+    \dot{\epsilon}^{ij}  = \frac{1}{2}\left( \frac{\partial v^i}{\partial x^j} +    
+    \frac{\partial v^j}{\partial x^i}\right) \quad \text{and} \quad \Omega^{ij} =   
+    \frac{1}{2}\left( \frac{\partial v^i}{\partial x^j} - \frac{\partial            
+    v^j}{\partial x^i}  \right)                                                     
+    \end{equation*}                                                                 
+    \begin{equation*}                                                              
+    \frac{Dv^i_a}{Dt}= \sum_b m_b\left(  \frac{\sigma_a^{ij}}{\rho_a^2} +          
+    \frac{\sigma_b^{ij}}{\rho_b^2}  + R_{ab}^{ij}f^n \right)\frac{\partial         
+    W_{ab}}{\partial x_a^j} +g^i                                                   
+    \end{equation*}                                                                
+    \begin{equation*}                                                              
+    \bar{R}_a^{xx} = -\epsilon \frac{\bar{\sigma}_a^{xx}}{\rho^2} \quad \text{when}
+    \quad \bar{\sigma}_a^{xx}>0                                                    
+    \end{equation*}                                                                
+  </small>
+</div>
+  </section>
+  <section>
+    <h2> Colliding Rings</h2>
+      <video width="700" height="600" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_rings.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video>
+  </section>
+  <section>
+    <h2> Compressible Incompressible interfaces</h2>
+    <ul>
+      <li>Density: Constant in incompressible fluid and pressure/temperature dependent in the compressible fluid </li>
+      <li> In Incompressible regions - modeling divergence constraint is a challenge near interfaces.</li>
+      <li> The termination of pressure wave from  compressible phase at the interface.</li>
+  </section>
+  <section>
+    <h2> Rayleigh Plesset Equation</h2>
+    <img src="images/raypless.png" class="imgNoBorder" width=300 >
+    <img src="images/raypless-1D.png" class="imgNoBorder" width=300 >
+    <small>
+      <br>
+    \begin{align*}
+    \left\{ \left( \frac{P_B -P_\infty}{\rho_L} - \frac{2*S}{\rho_L R}-   
+    \left(\frac{R^4}{R_\infty ^4} -1
+    \right)\frac{\dot{R}^2}{2}\right)\frac{R_\infty}{R_\infty - R}            
+    - 2 \dot{R}^2 \right\}\frac{1}{R}  &= \ddot{R}
+    \end{align*}
+    <strong> 2D case</strong>
+    \begin{align*}
+    \left\{  \frac{P_B -P_\infty}{\rho_L} - \frac{S}{\rho_L R}-  
+    \left(\frac{R^2}{R_\infty ^2}  -1
+    \right)\frac{\dot{R}^2}{2}  - 
+    \dot{R}^2\ln \frac{R_\infty}{R}
+    \right\}\frac{1}{R\ln \frac{R_\infty}{R}}  &= \ddot{R}
+    \end{align*}
+    <strong> 1D case</strong>
+    \begin{align*}
+    \left( \frac{P_B -P_\infty}{\rho_L}\right)\frac{1}{R_\infty-R} &= \ddot{R}
+    \end{align*}
+    </small>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 10:1
+     <table style="margin:0px auto; width:800px" >
+       <tr>
+         <td><img src="images/rp/rp_rect_dr10.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr10.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 100:1
+     <table style="margin:0px auto; width:800px" >
+       <tr>
+         <td><img src="images/rp/rp_rect_dr100.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr100.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 1000:1
+     <table style="margin:0px auto; width:800px" >
+       <tr>
+         <td><img src="images/rp/rp_rect_dr1000.png" width=500 class="imgNoBorder"></td>
+         <td style="vertical-align:middle"><img src="images/rp/rp_rect_freq_dr1000.png" width=300 class="imgNoBorder"></td>
+       </tr>
+     </table>
+  </section>
+  <section>
+    <h2> 1D results </h2>
+    $$ P_\infty (t) = 20+1.5\sin \left( \frac{2\pi t}{50}\right) $$               
+     Density Ratio (Incompressible : Compressible) is 1000:1
+  
+      <video width="600" height="500" controls autoplay loop>
+        <source src="http://prapanchnair.github.io/media/movie_rect.ogv" type="video/ogg">
+        Your browser does not support the video tag.
+      </video>
+   
+    </section>
+    <section>
+      <h2> 2D results </h2>
+      <table style="margin:0px auto; width:800px" >
+        <tr>
+          <td>  $$ P_\infty (t) = 20+1.0\sin \left( \frac{2\pi t}{30}\right) $$ <br>
+            Density ratio 10:1 <br>
+            Surface tension coeff 1.0</td>
+          <td style="vertical-align:middle"> 
+            <video width="400" height="300" controls autoplay loop>
+              <source src="http://prapanchnair.github.io/media/movie_circ.ogv" type="video/ogg">
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+      <table style="margin:0px auto; width:800px" >
+        <tr>
+          <td><img src="images/rp/rp_circ_dr10.png" width=500 class="imgNoBorder"></td>
+          <td style="vertical-align:middle"><img src="images/rp/rp_circ_freq_dr10.png" width=300 class="imgNoBorder"></td>
+        </tr>
+      </table>
+    </section>
+  </section>
+  <section>
+    <section>
 
-		</div>
+      <h1> Current and future work</h1>
+    </section>
+    <section>
+      <h2> Better water entry simulations </h2>
+
+      <img src="images/threephase.svg" width="500" class="imgNoBorder" />
+    </section>
+    <section>
+      <h2> VoF method with subgrid molecular forces model </h2>
+
+      <img src="images/multiscale.png" width="400" class="imgNoBorder" /> <br>
+        <img src="images/vanderwaals.png" style="top:-50px" width="600" class="imgNoBorder" />
+      </section>
+
+      <section>
+        <ul>
+          <li>Experience with developing particle based simulation code and algorithm</li>
+          <li>Particle based simulation methods </li>
+          <li>Complex physics</li>
+          <li>Multiscale studies</li>
+          <li>HPC aspects </li>
+        </ul>
+        <h2> Thank You </h2>
+      </section>
+    </section>
+    <section>
+      <h2> Appendix: Wendland Kernel</h2>
+      <img src="images/fourier_kernels.png" class="imgNoBorder" width=700">
+    </section>
+
+
+  </div>
+
+</div>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
@@ -833,15 +1233,19 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         zoomKey: 'shift',
 				theme: 'simple',//Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: 'fade',//Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
+        leap: {
+              naturalSwipe   : false,    // Invert swipe gestures
+              pointerOpacity : 0.5,      // Set pointer opacity to 0.5
+              pointerColor   : '#d80000' // Red pointer
+          },
 				math: {
-              //mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js', 
-			        mathjax: 'js/MathJax-2.4-latest/MathJax.js', 
+              mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js', 
+//			        mathjax: 'js/MathJax-2.4-latest/MathJax.js', 
 			        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
 			    },
         multiplex: {
         // Example values. To generate your own, see the socket.io server instructions.
-        secret: null,// '14458580502417865033', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+        secret: null,//'14458580502417865033', // Obtained from the socket.io server. Gives this (the master) control of the presentation
         id: '22172944e37abdbb', // Obtained from socket.io server
         url: 'revealjs-51546.onmodulus.net:80' // Location of socket.io serveri
           },
@@ -860,7 +1264,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js' , async: true },
           { src: 'plugin/multiplex/client.js', async: true },
-					{ src: 'plugin/math/math.js', async: true }
+					{ src: 'plugin/math/math.js', async: true },
+					{ src: 'plugin/leap/leap.js', async: true }
 				]
 			});
 
