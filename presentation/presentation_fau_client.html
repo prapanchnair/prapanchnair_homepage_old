@@ -78,8 +78,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       <ul>
         <li>About me </li>
         <li>Motivation and scope</li>
-        <li>ISPH-Introduction and development </li>
-        <li>Improvements to the algorithm</li>
+        <li>ISPH-Introduction </li>
+        <li>Code development </li>
+        <li>Improvements to SPH</li>
         <li>Simulations and Results</li>
         <li>Current problems and future work</li>
       </ul>
@@ -97,7 +98,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           <li> RWDI - Wind Engineering simulations </li>
           <li> ISRO - Flight Mechanics Division </li>
           <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
-         <li> Research Associate - IISc</li>
+         <li class="fragment" data-fragment-index="2"> Research Associate - IISc</li>
         </ul>
       </section>
       <section>
@@ -138,9 +139,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2> SPH Research </h2>
         <ul><li> One of the oldest Meshless method for continuum</li>
           <li> Continuous in development</li>
-          <li> Less sensitive initial particle distribution  </li>
+          <li> Less sensitive to initial particle distribution  </li>
+          <li> Relatively more efficient (e.g, against DEM and EFG)</li>
           <li> Higher order shape functions </li>
-          <li class="fragment" data-fragment-index="2"><strong> Few accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
+          <li class="fragment" data-fragment-index="2"><strong> Few rigorous accuracy estimates, lot of heuristics, but varied applications</strong> </li> 
         </ul>
       </section>
       <section>
@@ -154,7 +156,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
     <section>
       <section>
-        <h1> SPH: Introduction and Code Development</h1>
+        <h1> SPH: Introduction</h1>
       </section>
       <section>
         <h2> Ideas </h2>
@@ -179,7 +181,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
               <img class="imgNoBorder" style="width:600px;" src="images/drawing-3.svg" />        
             </div>
           </div>
-          <div class="fragment" data-fragment-index="2">
+          <div class="fragment" data-fragment-index="3">
             <div class="innerImg" >
               <img class="imgNoBorder" style="width:600px;" src="images/gradient.svg"/>          
             </div>
@@ -195,20 +197,20 @@ if( window.location.search.match( /print-pdf/gi ) ) {
             </small>
           </div>
           <div class="fragment" data-fragment-index="2">
+            Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
+            Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
+            Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
+          </div>
+          <div class="fragment" data-fragment-index="3">
             Derivatives:<small>
               \[
               \nabla A(r)= \int_\Omega A(r') \nabla W(|r-r'|)dr'
               \] </small>
           </div>
-          <div class="fragment" data-fragment-index="3">
-            Normalization: <small>$\int W(\mathbf{r}-\mathbf{r}',h)d\mathbf{r}' =1$, </small>
-            Compact support:<small> $ W(\mathbf{r}-\mathbf{r}',h) = 0 \textrm{ for } |\mathbf{r}-\mathbf{r}'| > r_c ,$ </small>
-            Positivity: <small> $W(\mathbf{r}-\mathbf{r}')\geq 0 $</small> 
-          </div>
         </div>
         <div style="float:right;width:600px;">
-          <div class="fragment" data-fragment-index="4" style="text-align:justify;"><p>
-            Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small>
+          <div class="fragment" data-fragment-index="2" style="text-align:justify;"><p>
+            Consistency: <small>as $h\rightarrow 0$, $ \lim_{h\rightarrow 0 } W(\mathbf{r}-\mathbf{r}',h)=\delta(\mathbf{r}-\mathbf{r}')$ </small> <br>
             Monotone decreasing, even and sufficiently smooth. </p>
           </div>
         </div>
@@ -253,7 +255,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         Pressure and density relation for closure:
         $$
         p = \frac{\rho_0 c_0^2}{\gamma} \left(\left(\frac{\rho}{\rho_0}\right)^\gamma - 1\right    ),
-        $$
+        $$ <small> ( R. H. Cole, 1948.)</small>
       </p> </div>
         <div class="box-green" data-title="(Truly?) Incompressible SPH (ISPH)"><p style="text-align:left">
         Following grid based methods - Projection method:
@@ -267,9 +269,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2> ISPH </h2>
         <div class="box-green" data-title="Advantages">
           <ul>
-            <li>Reliable </li>
+            <li>Reliable (Lee et. al., 2008) </li>
             <li>Smoother pressure and velocity fields</li>
             <li>Coarser grid</li>
+            <li> Lesser degrees of freedom </li>
             <li>Larger time steps (2 to 20 times faster)</li>
           </ul>
         </div>
@@ -359,15 +362,20 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h1> Code Development</h1>
       </section>
       <section>
-        <h2> Database </h2>
+        <h2> Datastructure </h2>
+        <div  style="text-align:justify">
         <ul>
-          <li>C language - array of <tt>struct</tt> with member data</li>
+          <li>Linked list for varying particle numbers </li>
+          <li>C language - array of <tt>struct</tt> with member particle data</li>
+          <li>Operations on the particles - update and <strong>interact</strong></li>
           <li>Underlying mesh of width $r_c$ </li> </ul>
+        </div>
         <figure>
           <img src="images/cells_particles.png" class="imgNoBorder" alt="data" width="550px">
         </figure>
+        <div  style="text-align:justify">
         <ul> <li>Cells parallelized using OpenMP</li>
-          <li>Operations on the particle - update and interact</li>
+        </div>
         </ul>
       </section>
       <section>
@@ -395,6 +403,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2>Features</h2>
         <ul>
           <li>C, OpenMP, a naive MPI version</li>
+          <li> Array data structure (also doubly linked list)</li>
           <li>OpenCL version for WCSPH</li>
           <li>HDF5 compression</li>
           <li>LIS library for linear system </li>
@@ -599,10 +608,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       <figure >
         <img src="images/profiles3d.png" class="imgNoBorder" alt="static" width="300px" >
       </figure>
-      <p><small> Comparison of initial profiles near the neck. Dotted lines represent ISPH simulation and the continuous lines denote the results of <em>Josserand and Zaleski,2003</em> </small></p>
+      <p><small> Comparison of initial profiles near the neck. Dotted lines represent ISPH simulation and the continuous lines denote the results of <em>Josserand and Zaleski, 2003</em> </small></p>
       <figure >
         <img src="images/mo_3.png" class="imgNoBorder" alt="static" width="300px" >
-        <figcaption><small> $t/\tau =1.5$ </small></figcaption>
+        <figcaption><small> $t/\tau =1.5$. No. of particles: 4 million </small></figcaption>
       </figure>
     </div>
   </section>
@@ -635,7 +644,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h3> Local Coordinate Transform </h3>
-    <table>
+    <table style="margin:0px auto; width:800px">
       <tr><td>
  <img src="images/coordinate_transform_2d.png" class="imgNoBorder" width="100%">
       </td>
@@ -643,12 +652,16 @@ if( window.location.search.match( /print-pdf/gi ) ) {
  <img src="images/coordinate_transform_3d.png" class="imgNoBorder" width="100%">
         </td>
       </tr>
+      <tr>
+        <td style="text-align:center"> 2 Dimensions </td>
+        <td style="text-align:center"> 3 Dimensions </td>
+      </tr>
     </table>
   </section>
   <section>
     <h3> Reconstructed Interface </h3>
-    <table>
-      <tr>
+    <table style="margin:0px auto; width:800px">
+      <tr style="border-bottom:2px solid #000; border-collapse:collapse" >
         <th> 2 Dimensions</th>
         <th> 3 Dimensions</th>
       </tr>
@@ -672,7 +685,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
           \equiv p^{T}
           (\vec{x} )\cdot a(\vec{x}),
           \]
-          which minimizes the function
+          Find $a(\vec{x})$ which minimize 
           \[     
           J = \sum\limits_i (z^h(\vec{x},\vec{x}_l) - z(\vec{x}_l))^2 \\
           = (Pa - z)^T
@@ -708,7 +721,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <ul>
       <li>  Divergence-free velocity is the condition for incompressibility   </li>
       <li>  When finite time step updates are used, conservation may not be satisfied.
-      \[ \frac{1}{\rho}\frac{d\rho}{dt} = -\nabla \cdot \mathbf{u} \]
+      \begin{align*} 
+      \frac{1}{\rho}\frac{d\rho}{dt} &= -\nabla \cdot \mathbf{u} \\
+      \frac{1}{\rho}\frac{\Delta \rho}{\Delta t} & \neq -\nabla \cdot \mathbf{u} 
+      \end{align*}
       </li>
       <li class="fragment current-visible" data-fragment-index="1"> <strong> Can we achieve better volume conservation while retaining simplicity of first order time updates? </strong></li>
     </ul>
@@ -744,7 +760,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <div style="text-align:left">
     At time $t =  m\Delta t$, the area ratio: 
     \[ A(t)/A(0) = \left( 1 + \Delta t^2 I_2\right)^{m}\]
-   <table>
+   <table style="margin:0px auto; width:800px">
      <tr>
        <td style="text-align:center"><small>$\mathbf{u}_{2D} = -100x\hat{\mathbf{i}} + 100y\hat{\mathbf{j}}  $</small></td>
        <td style="text-align:center"> <small>$  \mathbf{u}_{3D} = 100x\hat{\mathbf{i}} - 50y\hat{\mathbf{j}} - 50z\hat{\mathbf{k}}$ </small></td>
@@ -776,10 +792,12 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       &= \det\mathbf{A} +\text{cof}(\mathbf{A}):\frac{\Delta t^2}{\rho}\nabla(\nabla p) + \mathcal{O}(\Delta t^4)
       \end{align*}
       where, $\mathbf{A} = \mathbf{I} +\Delta t \nabla \mathbf{u}^*$
-      For a 2D domain:
+      For a 2D domain:i
+      <div style="font-size:70%">
       \[
       1-\det\mathbf{A} = \frac{\Delta t ^2}{\rho}\left( a_{22} \frac{\partial^2 p}{\partial x ^2} + a_{11}\frac{\partial^2 p }{\partial y^2} - (a_{12} + a_{21} ) \frac{\partial ^2 p}{\partial x \partial y     }\right).
       \]
+      </div>
     </div>
   </section>
  
@@ -797,11 +815,11 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       </div>
     </div>
     <div style="text-align:center">
-      <div style="display:inline-block">
+      <div style="display:inline-block; text-align:center">
         <img src="images/vol/Fig_3a.png" width="400px" class="imgNoBorder"><br>
         <small> 2D elliptical droplet </small>
       </div>
-      <div style="display:inline-block">
+      <div style="display:inline-block; text-align:center">
         <img src="images/vol/Fig_3b.png" width="400px" class="imgNoBorder"><br>
         <small> 3D prolate droplet </small>
       </div>
@@ -809,7 +827,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h3> Volume Conservation - Internal Flows </h3>
-    <table>
+    <table style="margin:0px auto; width:800px">
       <tr>
         <td valign="middle" style="vertical-align:middle">
           <img src="images/vol/Fig_4a.png" width="700px" class="imgNoBorder">
@@ -824,7 +842,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h3> Volume Conservation - Internal Flows </h3>
-    <table> 
+    <table style="margin:0px auto; width:800px"> 
       <tr>
         <td><img src="images/vol/Fig_5a.png" class="imgNoBorder" width="200px"></td>
         <td><img src="images/vol/Fig_5b.png" class="imgNoBorder" width="200px"></td>
@@ -848,10 +866,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h3> Volume Conservation - Internal Flows </h3>
-    <table> 
+    <table style="margin:0px auto; width:800px"> 
       <tr>
         <td><img src="images/vol/Fig_8.png" class="imgNoBorder" width="600px"></td>
-        <td style="vertical-align:middle"> Wendland Kernel <br> Acts as a better filter-fourier transform</td>
+        <td style="vertical-align:middle"> Wendland Kernel <br> <small>(Acts as a better filter-fourier transform)</small></td>
       </tr>  
       <tr>
         <td><img src="images/vol/Fig_10.png" class="imgNoBorder" width="600px"></td>
@@ -867,7 +885,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   <section>
     <h2> Water Entry problems </h2>
     <div style="text-align:center">
-      <table width="810px">
+      <table style="margin:0px auto; width:800px" >
         <tr>
           <td><img src="images/greenhow/t305.png" class="imgNoBorder" width="400px"></td>
           <td><img src="images/greenhow/t315.png" class="imgNoBorder" width="400px"></td>
@@ -888,8 +906,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     </div>
   </section>
   <section>
-    <h2> Greenhow & Lin - Experiments </h2>
-    <table>
+    <h2> Comparison with Greenhow & Lin, 1983.</h2>
+    <table style="margin:0px auto; width:800px" >
       <tr>
         <td><img src="images/greenhow/penetration.png" class="imgNoBorder" width="500px"></td>
         <td style="verticla-align:middle"><img src="images/greenhow/fymacro.png" class="imgNoBorder" width="300px"></td>
@@ -898,7 +916,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   </section>
   <section>
     <h2> Water Exit </h2>
-    <table width="810px">
+    <table style="margin:0px auto; width:800px">
       <tr>
         <td><img src="images/greenhow/ce1.png" class="imgNoBorder" width="400px"></td>
         <td><img src="images/greenhow/ce2.png" class="imgNoBorder" width="400px"></td>
@@ -995,15 +1013,19 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     <table style="margin:0px auto; width:800px">
       <tr>
         <td>
-    <img src="images/truscott/spin_pressure.png" class="imgNoBorder" width=270 > </td>
+    <img src="images/truscott/spin_pressure.png" class="imgNoBorder" width=400 > </td>
   <td>
-          <img src="images/truscott/spin_energy.png" class="imgNoBorder" width=270 ></td>
-        <td><img src="images/truscott/spin_energy_fluid.png" class="imgNoBorder" width=270 ></td>
+          <img src="images/truscott/spin_energy.png" class="imgNoBorder" width=400 ></td>
       </tr>
       <tr>
         <td style="text-align:center"> Pressure</td>
         <td style="text-align:center"> KE of solid</td>
-        <td style="text-align:center"> KE of fluid</td>
+      </tr>
+      <tr>
+        <td colspan="2" ><img src="images/truscott/spin_energy_fluid.png" class="imgNoBorder" width=400 ></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align:center"> KE of fluid</td>
       </tr>
     </table>
   </section>
@@ -1051,8 +1073,8 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         Assuming Hooke's law with shear modulus $\mu$, the rate of change of $S^{ij}$ is given by: <br>
     \begin{equation*}                                                               
     \frac{DS^{ij}}{Dt}= 2\mu\left(\dot{\epsilon}^{ij}                             
-    -\frac{1}{3}\delta^{ij}\dot{\epsilon}^{ij}\right)+S^{ik}\Omega^{jk} +           
-    \Omega^{ik}S^{kj}                                                               
+    -\frac{1}{3}\delta^{ij}\dot{\epsilon}^{ij}\right)+ \color{red}{ S^{ik}\Omega^{jk} +           
+    \Omega^{ik}S^{kj} }                                                               
     \end{equation*}                                                                 
     \begin{equation*}                                                              
     \dot{\epsilon}^{ij}  = \frac{1}{2}\left( \frac{\partial v^i}{\partial x^j} +    
@@ -1186,7 +1208,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
     </section>
     <section>
       <h2> Better water entry simulations </h2>
-
+      <em> The three phase contact line</em> <br>
       <img src="images/threephase.svg" width="500" class="imgNoBorder" />
     </section>
     <section>
@@ -1233,11 +1255,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         zoomKey: 'shift',
 				theme: 'simple',//Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: 'fade',//Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-        leap: {
-              naturalSwipe   : false,    // Invert swipe gestures
-              pointerOpacity : 0.5,      // Set pointer opacity to 0.5
-              pointerColor   : '#d80000' // Red pointer
-          },
 				math: {
               mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js', 
 //			        mathjax: 'js/MathJax-2.4-latest/MathJax.js', 
@@ -1263,9 +1280,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js' , async: true },
+//          { src: 'plugin/multiplex/master.js', async: true },
           { src: 'plugin/multiplex/client.js', async: true },
-					{ src: 'plugin/math/math.js', async: true },
-					{ src: 'plugin/leap/leap.js', async: true }
+					{ src: 'plugin/math/math.js', async: true }
 				]
 			});
 
