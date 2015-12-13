@@ -56,8 +56,7 @@ if( window.location.search.match( /print-pdf/gi ) ) {
   <!-- Any section element inside of this container is displayed as a slide -->
   <div class="slides">
     <section>
-      <h1 style="font-size:1.75em"> <strong>Modeling of Free Surface Flows and Fluid Structure                       
-          Interactions using </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
+      <h1 style="font-size:1.75em"> <strong> A study of water-entry of solids using Incompressible </strong> </br>  Smoothed Particle Hydrodynamics </h1></br>
       <h4>Prapanch Nair</h4> </br>
       <h5>Multiphase Flow Simulations Lab </h5>
       <h5>Dept. of Mechanical Engineering </h5>
@@ -87,35 +86,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <aside class="notes">
           blah blah
           </aside>
-    </section>
-    <section>
-      <section>
-        <h1>About Me</h1>
-      </section>
-      <section>
-        <ul><li> Bachelor of Engineering in Aeronautics - Anna University</li>
-          <li> RA at University of Alabama, USA - Turbulence transition models</li>
-          <li> RWDI - Wind Engineering simulations </li>
-          <li> ISRO - Flight Mechanics Division </li>
-          <li class="fragment" data-fragment-index="2"><strong> PhD Scholar and teaching assistant - IISc</strong></li>
-         <li class="fragment" data-fragment-index="2"> Research Associate - IISc</li>
-        </ul>
-      </section>
-      <section>
-        <h2> Multiphase Flow Simulations Lab, IISc </h2>
-        <ul> 
-          <li>Electrohydrodynamics</li>
-          <li>Viscoelasticity</li>
-          <li>Porous Media </li>
-          <li> Large scale atomization-Jet in cross flow</li>
-          <strong>
-        <li> ISPH code development</li>
-        <li> Developing a FVM with subgrid thin film model</li>
-          <li> Water Entry problems using SPH</li>
-        </strong>
-        </ul>
-      </section>
-
     </section>
 
     <section>
@@ -149,7 +119,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         <h2> Scope of current work </h2>
         <ul><li> Incompressible flows - modeled by continuity equation (ISPH)</li>
           <li> Free surfaces imply that only one phase is simulated </li>
-          <li> Improvements proposed focus on removing heuristics</li>
         </ul>
       </section>
     </section>
@@ -356,61 +325,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
       </section>
     
-    </section>
-    <section>
-      <section>
-        <h1> Code Development</h1>
-      </section>
-      <section>
-        <h2> Datastructure </h2>
-        <div  style="text-align:justify">
-        <ul>
-          <li>Linked list for varying particle numbers </li>
-          <li>C language - array of <tt>struct</tt> with member particle data</li>
-          <li>Operations on the particles - update and <strong>interact</strong></li>
-          <li>Underlying mesh of width $r_c$ </li> </ul>
-        </div>
-        <figure>
-          <img src="images/cells_particles.png" class="imgNoBorder" alt="data" width="550px">
-        </figure>
-        <div  style="text-align:justify">
-        <ul> <li>Cells parallelized using OpenMP</li>
-        </div>
-        </ul>
-      </section>
-      <section>
-        <h2> Interactions </h2>
-        <figure>
-          <img src="images/sph_datastruct.png" class="imgNoBorder" alt="data" width="750px">
-        </figure>
-      </section>
-      <section >
-        <h2> Linear Solver </h2>
-        <div style="text-align:justify">
-        <ul >
-          
-          <li> COO-data structure (also used in unstructured meshes)</li> </ul> </div>
-        <figure>
-          <img src="images/coo_format.png" class="imgNoBorder" alt="data" width="700px">
-        </figure> 
-        <div style="text-align:justify">
-        <ul > 
-          <li> Cache misses during the Mat-Vec operation</li>
-          <li>BiCGSTAB Solver - external library (LIS)</li>
-      </ul> </div>
-      </section>
-      <section>
-        <h2>Features</h2>
-        <ul>
-          <li>C, OpenMP, a naive MPI version</li>
-          <li> Array data structure (also doubly linked list)</li>
-          <li>OpenCL version for WCSPH</li>
-          <li>HDF5 compression</li>
-          <li>LIS library for linear system </li>
-          <li>Git-version control</li>          
-        </ul>
-      </section>
-
     </section>
 
     <section>
@@ -629,57 +543,6 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       <li class="fragment current-visible" data-fragment-index="1"> <strong> Can we achieve better volume conservation while retaining simplicity of first order time updates? </strong></li>
     </ul>
   </section>
-  <section >
-    <h3>Volume Loss </h3>
-    <div style="text-align:left"> 
-    For explicit Euler time step,
-    \[
-    \mathbf{r}^{n+1} =  \mathbf{r} + \Delta t \mathbf{u}_{DF}.
-    \]
-    The corresponding gradient of this deformation can be written as,       
-    \begin{align*}
-    \mathbf{F}^{n+1} &=  \mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}.
-    \end{align*}
-    \begin{align*}
-    \det(\mathbf{I} + \Delta t \nabla \mathbf{u}_{DF}) &= 1
-    \end{align*} 
-    Using  Cayley-Hamilton theorem,
-    \[
-    \underbrace{\Delta t I_1 + \Delta t^2 I_2}_{\text{for 2D}} + \Delta t^3 I_3 = 0. 
-    \]
-    $I_1$ corresponds to zero divergence:
-    \[
-    I_1 = \text{tr}\nabla \mathbf{u}_{DF} = \nabla \cdot  \mathbf{u}_{DF} = 0, \nonumber
-    \]
-    <em>$I_2$, $I_3$ would vanish only for a vanishing $\Delta t$.</em>
-  </div>
-  </section>
-
-  <section>
-    <h3> Volume loss - Demonstration </h3>
-    <div style="text-align:left">
-    At time $t =  m\Delta t$, the area ratio: 
-    \[ A(t)/A(0) = \left( 1 + \Delta t^2 I_2\right)^{m}\]
-   <table style="margin:0px auto; width:800px">
-     <tr>
-       <td style="text-align:center"><small>$\mathbf{u}_{2D} = -100x\hat{\mathbf{i}} + 100y\hat{\mathbf{j}}  $</small></td>
-       <td style="text-align:center"> <small>$  \mathbf{u}_{3D} = 100x\hat{\mathbf{i}} - 50y\hat{\mathbf{j}} - 50z\hat{\mathbf{k}}$ </small></td>
-     </tr>
-     <td>
-       <img src="images/vol/Fig_1a.png" class="imgNoBorder" width="400px">
-     </td>
-     <td>
-       <img src="images/vol/Fig_1b.png" class="imgNoBorder" width="400px">
-     </td>
-   </tr>
- </table>
-    For Predictor Corrector updates:
-    \[
-    A(t)/A(0) = \left(1+ \Delta t G_1 + \Delta t^2 G_2 \right)^m,
-    \]
-    <small> $G_1$ and $G_2$: invariants of  $\nabla\mathbf{u}_{DF}^n + \Delta t (\nabla \mathbf{u}_{DF}^n)^2/2$.</small>
-    </div>
-  </section>
   
   <section>
     <h3> Proposed Pressure Equation </h3>
@@ -700,90 +563,13 @@ if( window.location.search.match( /print-pdf/gi ) ) {
       </div>
     </div>
   </section>
- 
-  <section>
-    <h3> Volume Conservation - Free Surface</h3>
-    <div style="text-align:center">
-      <div style="display:inline-block">
-        <img src="images/vol/Fig_2a.jpeg" width="250px" class="imgNoBorder">
-      </div>
-      <div style="display:inline-block">
-        <img src="images/vol/Fig_2b.jpeg" width="250px" class="imgNoBorder">
-      </div>
-      <div style="display:inline-block">
-        <img src="images/vol/Fig_2c.jpeg" width="250px" class="imgNoBorder">
-      </div>
-    </div>
-    <div style="text-align:center">
-      <div style="display:inline-block; text-align:center">
-        <img src="images/vol/Fig_3a.png" width="400px" class="imgNoBorder"><br>
-        <small> 2D elliptical droplet </small>
-      </div>
-      <div style="display:inline-block; text-align:center">
-        <img src="images/vol/Fig_3b.png" width="400px" class="imgNoBorder"><br>
-        <small> 3D prolate droplet </small>
-      </div>
-    </div>
-  </section>
-  <section>
-    <h3> Volume Conservation - Internal Flows </h3>
-    <table style="margin:0px auto; width:800px">
-      <tr>
-        <td valign="middle" style="vertical-align:middle">
-          <img src="images/vol/Fig_4a.png" width="700px" class="imgNoBorder">
-        </td><td valign="middle" style="vertical-align:middle"> $ Re =400$ </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:middle">
-          <img src="images/vol/Fig_4b.png" width="700px" class="imgNoBorder">
-        </td><td style="vertical-align:middle"> $ Re =1000$ </td>
-      </tr>
-      </table>
-  </section>
-  <section>
-    <h3> Volume Conservation - Internal Flows </h3>
-    <table style="margin:0px auto; width:800px"> 
-      <tr>
-        <td><img src="images/vol/Fig_5a.png" class="imgNoBorder" width="200px"></td>
-        <td><img src="images/vol/Fig_5b.png" class="imgNoBorder" width="200px"></td>
-        <td><img src="images/vol/Fig_6a.png" class="imgNoBorder" width="200px"></td>
-        <td><img src="images/vol/Fig_6b.png" class="imgNoBorder" width="200px"></td>
-      </tr>  
-      <tr>
-        <td colspan="2" style="text-align:center"><small> Re 400 (2500 particles)</small> </td>
-        <td colspan="2" style="text-align:center"><small>Re 1000 (2500 particles)</small> </td>
-      </tr>  
-      <tr>  
-        <td colspan="2"><img src="images/vol/Fig_7.png" class="imgNoBorder" width="400px"></td>
-        <td colspan="2"><img src="images/vol/Fig_9.png" class="imgNoBorder" width="400px"></td>
-      </tr>  
-      <tr>
-        <td colspan="2" style="text-align:center"><small>RMS of the relative density errors - Wendland kernel</small> </td>
-        <td colspan="2" style="text-align:center"><small>RMS of the relative density errors - Spline (M5) kernel</small> </td>
-      </tr>  
-    </table>
-  
-  </section>
-  <section>
-    <h3> Volume Conservation - Internal Flows </h3>
-    <table style="margin:0px auto; width:800px"> 
-      <tr>
-        <td><img src="images/vol/Fig_8.png" class="imgNoBorder" width="600px"></td>
-        <td style="vertical-align:middle"> Wendland Kernel <br> <small>(Acts as a better filter-fourier transform)</small></td>
-      </tr>  
-      <tr>
-        <td><img src="images/vol/Fig_10.png" class="imgNoBorder" width="600px"></td>
-        <td style="vertical-align:middle"> Spline Kernel</td>
-      </tr>  
-    </table> 
-  </section>
 </section>
 <section>
   <section>
-    <h1> Simulations and Results</h1>
+    <h1> Water Entry</h1>
   </section>
   <section>
-    <h2> Water Entry problems </h2>
+    <h2> Experiments of Greenhow and Lin, 1983 </h2>
     <div style="text-align:center">
       <table style="margin:0px auto; width:800px" >
         <tr>
